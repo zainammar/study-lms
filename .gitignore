@@ -1,0 +1,5 @@
+# *.mp4
+# *.pdf
+.env
+__pycache__/
+media/

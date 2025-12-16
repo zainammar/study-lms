@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+<h1>Home Page</h1>
+<style>
+     body{background-color: #fef7b0; }
+</style>
+<ul>
+    {% for page in pages %}
+        <li>
+            <a href="{% url 'page_detail' page.slug %}">
+                {{ page.title }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

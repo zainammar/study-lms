@@ -1,0 +1,20 @@
+{% extends 'pages/base.html' %}
+{% block content %}
+<h1>{{ course.title }}</h1>
+
+<ul>
+{% for chapter in course.chapters.all %}
+  <li>{{ chapter.title }}
+    <ul>
+      {% for page in chapter.pages.all %}
+        <li>
+          <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}">
+            {{ page.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>
+{% endblock %}
