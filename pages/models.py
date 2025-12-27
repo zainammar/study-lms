@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 
 
 class Course(models.Model):
@@ -13,11 +14,7 @@ class Course(models.Model):
 
 
 class Chapter(models.Model):
-    course = models.ForeignKey(
-        Course,
-        related_name='chapters',
-        on_delete=models.CASCADE
-    )
+    course = models.ForeignKey(Course, related_name='chapters', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     order = models.PositiveIntegerField(default=1)
@@ -31,11 +28,7 @@ class Chapter(models.Model):
 
 
 class Page(models.Model):
-    chapter = models.ForeignKey(
-        Chapter,
-        related_name='pages',
-        on_delete=models.CASCADE
-    )
+    chapter = models.ForeignKey(Chapter, related_name='pages', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     content = models.TextField()
@@ -51,10 +44,22 @@ class Page(models.Model):
         return self.title
 
 
-# Auto delete files
 @receiver(post_delete, sender=Page)
 def delete_files(sender, instance, **kwargs):
     if instance.video:
         instance.video.delete(False)
     if instance.pdf:
         instance.pdf.delete(False)
+
+
+class Enrollment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='enrollments')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='enrollments')
+    enrolled_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        unique_together = ('user', 'course')
+
+    def __str__(self):
+        return f"{self.user.username} → {self.course.title}"
