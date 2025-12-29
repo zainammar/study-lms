@@ -4,7 +4,7 @@
 {% if courses %}
 <ul>
     {% for course in courses %}
-        <li>
+        <li class="a">
             <a href="{% url 'chapter_list' course.slug %}">
                 {{ course.title }}
             </a>

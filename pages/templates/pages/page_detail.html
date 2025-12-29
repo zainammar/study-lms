@@ -1,17 +1,56 @@
 {% extends 'pages/base.html' %}
 {% block content %}
 
-<h1>{{ page.title }}</h1>
-<p>{{ page.content }}</p>
+<div class="container" style="display:flex; gap:20px;">
 
-{% if page.video %}
-<video controls width="1000">
-  <source src="{{ page.video.url }}">
-</video>
-{% endif %}
+  <!-- LEFT SIDEBAR : Course / Chapters / Pages -->
+  <aside style="width:25%; border-right:1px solid #ddd; padding-right:15px;">
+    <h3>{{ course.title }}</h3>
 
-{% if page.pdf %}
-<p><a href="{{ page.pdf.url }}" target="_blank">Download PDF</a></p>
-{% endif %}
+    <ul>
+      {% for chapter in course.chapters.all %}
+        <li>
+          <strong>{{ chapter.title }}</strong>
+          <ul>
+            {% for p in chapter.pages.all %}
+              <li>
+                <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}">
+                  {{ p.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <!-- RIGHT CONTENT : Page Detail -->
+  <main style="width:75%; padding-left:15px;">
+    
+    {% if page %}
+      <h1>{{ page.title }}</h1>
+      <p>{{ page.content }}</p>
+
+      {% if page.video %}
+        <video controls width="100%">
+          <source src="{{ page.video.url }}">
+        </video>
+      {% endif %}
+
+      {% if page.pdf %}
+        <p>
+          <a href="{{ page.pdf.url }}" target="_blank">
+            📄 Download PDF
+          </a>
+        </p>
+      {% endif %}
+    {% else %}
+      <p>Please select a page from the left menu.</p>
+    {% endif %}
+
+  </main>
+
+</div>
 
 {% endblock %}
