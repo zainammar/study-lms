@@ -11,7 +11,7 @@
 <ul>
     {% for page in pages %}
         <li>
-            <a href="{% url 'page_detail' page.slug %}">
+            <a href="{% url 'page_detail' page.slug %}" class="txt-2">
                 {{ page.title }}
             </a>
         </li>

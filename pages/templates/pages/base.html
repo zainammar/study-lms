@@ -1,21 +1,24 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}My Courses{% endblock %}</title>
-
-    {% load static %}
-
+    <title>{% block title %}Study Learning Management System{% endblock %}</title>
+    
+    {% load static %}  <!-- <-- This is required -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+   
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
         * {
-            margin: 0;
-            padding: 0;
+           margin: 0px;
+            padding: 0px;
             box-sizing: border-box;
+            text-decoration: none;
         }
 
         body {
@@ -162,7 +165,49 @@
     color: #aaa;
 }
 
+
     </style>
+    <style>
+        .containerx {
+          display: grid;
+          grid-template-columns: 10% 80% 10%;
+          /* background-color: rgb(195, 216, 251); */
+          padding: 15px;
+          gap: 5px;
+          text-decoration: none;
+        }
+        .containerx div {
+          color: rgb(0, 0, 0);
+          padding: 10px;
+
+          text-align: left;
+          text-decoration: none;
+          list-style: none;
+        }
+         
+        .containerx ul li a {
+           font-family: Georgia, 'Times New Roman', Times, serif;
+           font-weight: bolder;
+           text-decoration: none;
+           font-size: 20px;
+           list-style: none;
+           padding: 10px;
+           margin: 10px;
+      
+          }
+          
+          .containerx  ul {
+           list-style: none;
+           padding: 0;
+                   }
+
+        .containerx ul li a:hover {
+            color: #04AA6D;
+        }
+
+
+
+        </style>
 </head>
 
 <body>
@@ -206,9 +251,19 @@
 </div>
 
 <hr>
+<div class="containerx">
+    <div></div>
+    <div>
+       
+        {% block content %} 
+        {% endblock %}
+        
+    </div>
+    <div></div>
+  
+  </div>
+  
 
-{% block content %}
-{% endblock %}
 
 <script>
     function myFunction() {

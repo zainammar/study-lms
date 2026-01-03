@@ -4,15 +4,19 @@
 {% extends 'pages/base.html' %}
 {% block content %}
 
-<h1>{{ course.title }}</h1>
+<h1 class="txt-1">{{ course.title }}</h1>
 
-<ul>
-{% for chapter in course.chapters.all %}
+<ul class="txt-1">
+{% for chapter in course.chapters.all %} 
   <li>{{ chapter.title }}
     <ul>
       {% for page in chapter.pages.all %}
         <li>
-          <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}">
+
+
+
+
+          <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}" class="txt-2">
             {{ page.title }}
           </a>
         </li>

@@ -4,8 +4,8 @@
 <div class="container" style="display:flex; gap:20px;">
 
   <!-- LEFT SIDEBAR : Course / Chapters / Pages -->
-  <aside style="width:25%; border-right:1px solid #ddd; padding-right:15px;">
-    <h3>{{ course.title }}</h3>
+  <aside style="width:25%; border-right:1px solid #b49494; padding-right:15px;">
+    <h3 class="txt-1">{{ course.title }}</h3>
 
     <ul>
       {% for chapter in course.chapters.all %}
@@ -14,7 +14,7 @@
           <ul>
             {% for p in chapter.pages.all %}
               <li>
-                <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}">
+                <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}" class="txt-2">
                   {{ p.title }}
                 </a>
               </li>
@@ -29,18 +29,18 @@
   <main style="width:75%; padding-left:15px;">
     
     {% if page %}
-      <h1>{{ page.title }}</h1>
-      <p>{{ page.content }}</p>
+      <h1 class="txt-1">{{ page.title }} </h1>
+      <h1 class="txt-3">{{ page.content }}</p>
 
       {% if page.video %}
         <video controls width="100%">
-          <source src="{{ page.video.url }}">
+          <source src="{{ page.video.url }}" class="btn">
         </video>
       {% endif %}
 
       {% if page.pdf %}
         <p>
-          <a href="{{ page.pdf.url }}" target="_blank">
+          <a href="{{ page.pdf.url }}" target="_blank" class="btn">
             📄 Download PDF
           </a>
         </p>
