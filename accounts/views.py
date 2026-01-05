@@ -167,3 +167,17 @@ from pages.models import Enrollment
 def dashboard(request):
     enrollments = Enrollment.objects.filter(user=request.user, is_active=True)
     return render(request, 'accounts/dashboard.html', {'enrollments': enrollments})
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('dashboard')
+        # If form is not valid, no redirect happens, we just fall through
+        # The template will have access to `form.errors`
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'accounts/signup.html', {'form': form})

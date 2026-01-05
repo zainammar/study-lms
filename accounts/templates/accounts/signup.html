@@ -1,3 +1,10 @@
+
+
+<!-- <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Sign Up</button>
+</form> -->
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -62,20 +69,26 @@
         <div>
         <div class="div-1">
             <h2>Sign Up</h2>
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="messages">{{ message }}</div>
-                {% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+            {{ field.label_tag }}
+            {{ field }}
+            {% if field.errors %}
+                <div style="color:#000000; font-size: 25px; margin-top: 5px;">
+                    {% for error in field.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
             {% endif %}
-            <form method="post">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Sign Up</button>
-            </form>
-            <p>Already have an account? <a href="{% url 'login' %}">Login here</a></p></div>
+        </div>
+    {% endfor %}
+    <button type="submit">Sign Up</button>
+</form>
 
-      </div>
-    </div>
-      
+</div>
+</div>
+  
 </body>
 </html>
