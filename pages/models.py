@@ -63,19 +63,3 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f"{self.user.username} → {self.course.title}"
-
-
-class PageLink(models.Model):
-    PAGE_CHOICES = [
-        ('contact', 'Contact'),
-        ('terms', 'Terms & Conditions'),
-        ('help', 'Help Center'),
-    ]
-
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True, choices=PAGE_CHOICES)
-    content = models.TextField()
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.title

@@ -7,7 +7,6 @@
     
     {% load static %}  <!-- <-- This is required -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
    
@@ -231,7 +230,7 @@
             <a href="/login/">Login</a>
             <a href="/logout/">Logout</a>
             <a href="/profile/">Edit Profile</a>
-            <!-- <a href="/users/">All Users</a> -->
+            <a href="/users/">All Users</a>
 
             <a href="javascript:void(0);" class="icon" onclick="myFunction()">
                 <i class="fa fa-bars"></i>
@@ -242,7 +241,7 @@
     <div>
         <h5 class="text-1">{{ user.username }}</h5>
     </div>
-  
+
     <div>
         {% if user.profile.profile_picture %}
             <img src="{{ user.profile.profile_picture.url }}" class="current-image">
@@ -291,27 +290,19 @@
           <h3>Quick Links</h3>
           <ul>
               <li><a href="/dashboard/">Dashboard</a></li>
-              <li><a href="/contact/">Contct</a></li>
+              <li><a href="/courses/">Courses</a></li>
               <li><a href="/profile/">Profile</a></li>
             
           </ul>
       </div>
-      <!-- {% block extra_css %}{% endblock %} -->
+
       <div>
           <h3>Support</h3>
-          
-          <ul class="page-links">
-            <ul>
-                {% for page in page_links %}
-                    <li>
-                        <a href="{% url 'page' page.slug %}">
-                            {{ page.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-                </ul>
-        </ul>
-        
+          <ul>
+              <!-- <li><a href="/help/">Help Center</a></li>
+              <li><a href="/privacy/">Privacy Policy</a></li>
+              <li><a href="/terms/">Terms & Conditions</a></li> -->
+          </ul>
       </div>
 
   </div>
