@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Course, Chapter, Page, Enrollment
 from django.http import HttpResponseForbidden
+from .models import PageLink
+
 
 def course_list(request):
     return HttpResponseForbidden("Access to this page is blocked.")
@@ -49,3 +51,13 @@ def page_detail(request, course_slug, chapter_slug, page_slug):
         'chapter': chapter, # optional (active chapter)
         'page': page        # main content
     })
+
+
+def page_detail(request, slug):
+    page = get_object_or_404(PageLink, slug=slug)
+    return render(request, 'pages/page.html', {'page': page})
+
+
+
+def footer_pages(request):
+    return {'footer_pages': PageLink.objects.all()}

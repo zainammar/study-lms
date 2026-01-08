@@ -17,6 +17,12 @@
         </li>
     {% endfor %}
 </ul>
-
+<ul>
+    {% for page in page_links %}
+        <li>
+            <a href="{% url 'page' page.slug %}">{{ page.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
 </body>
 </html>

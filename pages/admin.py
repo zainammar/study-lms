@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Course, Chapter, Page, Enrollment
-
+from .models import PageLink
 
 # Inline for Pages under Chapter
 class PageInline(admin.TabularInline):
@@ -48,3 +48,6 @@ class EnrollmentAdmin(admin.ModelAdmin):
 autocomplete_fields = ['user', 'course']
 
 
+@admin.register(PageLink)
+class PageLinkAdmin(admin.ModelAdmin):
+    list_display = ('title', 'slug', 'updated_at')
