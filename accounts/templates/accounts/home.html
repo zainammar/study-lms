@@ -19,6 +19,10 @@
     </style>
 </head>
 <body>
+    from django.shortcuts import redirect
+
+def course_list(request):
+    return redirect('/')  # Redirect to home page
     <div class="header">
         <h2>Home Page</h2>
         <div class="nav-buttons">

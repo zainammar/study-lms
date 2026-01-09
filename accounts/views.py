@@ -181,3 +181,4 @@ def signup(request):
         form = UserCreationForm()
 
     return render(request, 'accounts/signup.html', {'form': form})
+

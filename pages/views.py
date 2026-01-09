@@ -2,12 +2,16 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Course, Chapter, Page, Enrollment
+from django.http import HttpResponseForbidden
+
+# def course_list(request):
+#     courses = Course.objects.all()
+#     return render(request, 'pages/course_list.html', {'courses': courses})
+
 
 
 def course_list(request):
-    courses = Course.objects.all()
-    return render(request, 'pages/course_list.html', {'courses': courses})
-
+    return HttpResponseForbidden("Access to this page is blocked.")
 
 def chapter_list(request, course_slug):
     course = get_object_or_404(
