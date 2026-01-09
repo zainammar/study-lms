@@ -9,7 +9,6 @@ from django.http import HttpResponseForbidden
 #     return render(request, 'pages/course_list.html', {'courses': courses})
 
 
-
 def course_list(request):
     return HttpResponseForbidden("Access to this page is blocked.")
 

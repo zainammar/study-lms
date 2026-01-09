@@ -1,0 +1,37 @@
+{% extends "coustom_pages/base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+
+    {% if page.content_A %}
+        {{ page.content_A|safe }}
+    {% endif %}
+    {% if page.content_B %}
+    {{ page.content_B|safe }}
+    {% endif %}
+    {% if page.content_C %}
+    {{ page.content_C|safe }}
+    {% endif %}
+    {% if page.content_D %}
+    {{ page.content_D|safe }}
+    {% endif %}
+    
+    {% if page.content_E %}
+    {{ page.content_E|safe }}
+    {% endif %}
+    {% if page.content_F %}
+    {{ page.content_F|safe }}
+    {% endif %}
+    {% if page.content_G %}
+    {{ page.content_G|safe }}
+    {% endif %}
+    {% if page.content_H %}
+    {{ page.content_H|safe }}
+    {% endif %}
+    {% if page.content_I %}
+    {{ page.content_I|safe }}
+    {% endif %}
+    
+    {% endblock %}
