@@ -1,3 +1,6 @@
+body{
+    background-color: #f5faf5;
+}
 /* static/css/style.css */
 .page-list {
     list-style-type: none; /* removes bullets */

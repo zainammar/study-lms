@@ -3,35 +3,70 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-    <h1>{{ page.title }}</h1>
-
-    {% if page.content_A %}
-        {{ page.content_A|safe }}
-    {% endif %}
-    {% if page.content_B %}
-    {{ page.content_B|safe }}
-    {% endif %}
-    {% if page.content_C %}
-    {{ page.content_C|safe }}
-    {% endif %}
-    {% if page.content_D %}
-    {{ page.content_D|safe }}
-    {% endif %}
-    
+ 
+    <div class="bg-1">
+      <h1>{{ page.title }}</h1>
+  </div>
+  <div class="container">
+      <div class="bg-2">
+          {% if page.content_A %}
+          <p>{{ page.content_A|safe }}</p>
+          {% endif %}
+          
+      </div>
+   
+    <div class="bg-2">
+      {% if page.content_B %}
+      <p>{{ page.content_B|safe }}</p>
+      {% endif %}
+      
+    </div>
+    <div class="bg-2">
+      {% if page.content_C %}
+      <p>{{ page.content_C|safe }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="container-one">
+    <div class="containerx bg-2">
+        {% if page.content_D %}
+        <p>{{ page.content_D|safe }}</p>
+        {% endif %}
+        
+    </div>
+  </div>
+  <div class="container-two">
+  <div class="bg-2">
     {% if page.content_E %}
-    {{ page.content_E|safe }}
-    {% endif %}
-    {% if page.content_F %}
-    {{ page.content_F|safe }}
-    {% endif %}
-    {% if page.content_G %}
-    {{ page.content_G|safe }}
-    {% endif %}
-    {% if page.content_H %}
-    {{ page.content_H|safe }}
-    {% endif %}
-    {% if page.content_I %}
-    {{ page.content_I|safe }}
+    <p>{{ page.content_E|safe }}</p>
     {% endif %}
     
+  </div>
+  <div class="bg-2">
+    {% if page.content_F %}
+    <p>{{ page.content_F|safe }}</p>
+    {% endif %}
+  </div>
+</div>
+<div class="container">
+  <div class="bg-2">
+      {% if page.content_G %}
+      <p>{{ page.content_G|safe }}</p>
+      {% endif %}
+      
+  </div>
+
+<div class="bg-2">
+  {% if page.content_H %}
+  <p>{{ page.content_H|safe }}</p>
+  {% endif %}
+  
+</div>
+<div class="bg-2">
+  {% if page.content_I %}
+  <p>{{ page.content_I|safe }}</p>
+
+</div>
+</div>
+  {% endif %}
     {% endblock %}
