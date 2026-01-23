@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Course, Chapter, Page, Enrollment
-
+from .models import Course, Chapter, Page, Enrollment, Assignment, AssignmentSubmission
 
 # Inline for Pages under Chapter
 class PageInline(admin.TabularInline):
@@ -48,3 +47,20 @@ class EnrollmentAdmin(admin.ModelAdmin):
 autocomplete_fields = ['user', 'course']
 
 
+
+
+
+@admin.register(Assignment)
+class AssignmentAdmin(admin.ModelAdmin):
+    list_display = ('title', 'course', 'chapter', 'due_date', 'is_active')
+    list_filter = ('course', 'is_active')
+    search_fields = ('title', 'course__title')
+    ordering = ('-created_at',)
+
+
+@admin.register(AssignmentSubmission)
+class AssignmentSubmissionAdmin(admin.ModelAdmin):
+    list_display = ('assignment', 'student', 'submitted_at', 'is_checked', 'marks')
+    list_filter = ('is_checked', 'assignment')
+    search_fields = ('student__username',)
+    ordering = ('-submitted_at',)

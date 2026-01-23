@@ -10,7 +10,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('accounts.urls')),
     path('', include('mysite.urls')),
-    path('', include('coustom_pages.urls')),
     path('admin/', admin.site.urls),
     
     

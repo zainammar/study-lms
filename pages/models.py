@@ -5,6 +5,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
 
+from django.conf import settings
+
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
@@ -91,3 +93,52 @@ class Enrollment(models.Model):
 
     def __str__(self):
         return f"{self.user.username} → {self.course.title}"
+
+
+
+class Assignment(models.Model):
+    course = models.ForeignKey(
+        Course,
+        on_delete=models.CASCADE,
+        related_name='assignments'
+    )
+    chapter = models.ForeignKey(
+        Chapter,
+        on_delete=models.CASCADE,
+        related_name='assignments',
+        blank=True,
+        null=True
+    )
+    title = models.CharField(max_length=200)
+    question = models.TextField()
+    due_date = models.DateTimeField(blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.course.title} - {self.title}"
+
+
+class AssignmentSubmission(models.Model):
+    assignment = models.ForeignKey(
+        Assignment,
+        on_delete=models.CASCADE,
+        related_name='submissions'
+    )
+    student = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='assignment_submissions'
+    )
+    answer_text = models.TextField(blank=True)
+    answer_file = models.FileField(upload_to='assignment_submissions/')
+    submitted_at = models.DateTimeField(auto_now_add=True)
+    is_checked = models.BooleanField(default=False)
+    marks = models.PositiveIntegerField(blank=True, null=True)
+    feedback = models.TextField(blank=True)
+
+    class Meta:
+        unique_together = ('assignment', 'student')
+
+    def __str__(self):
+        return f"{self.student.username} - {self.assignment.title}"
