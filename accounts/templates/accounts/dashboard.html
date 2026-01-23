@@ -9,11 +9,13 @@
 {% if enrollments %}
     <ul>
         {% for enrollment in enrollments %}
-            <li>
+            <li class="a21">
                 <a href="{% url 'chapter_list' enrollment.course.slug %}">
                     {{ enrollment.course.title }}
+                    
                 </a>
             </li>
+            <p class="text-2">{{ enrollment.course.description|truncatewords:100}}</p>
         {% endfor %}
     </ul>
 {% else %}
