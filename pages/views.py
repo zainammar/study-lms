@@ -7,8 +7,11 @@ from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Assignment
-from .forms import AssignmentSubmissionForm
 from .models import Course
+from django.contrib.auth.decorators import login_required
+from .models import Course, Assignment, AssignmentSubmission
+from .forms import AssignmentSubmissionForm
+
 
 def course_detail(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
@@ -124,3 +127,41 @@ def course_detail(request, course_slug):
     })
 
 
+
+
+# new
+
+# views.py
+@login_required
+def course_detail(request, course_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    assignments = course.assignments.all()
+
+    for assignment in assignments:
+        try:
+            submission = AssignmentSubmission.objects.get(assignment=assignment, student=request.user)
+            assignment.submitted = True
+        except AssignmentSubmission.DoesNotExist:
+            assignment.submitted = False
+
+    if request.method == 'POST':
+        print("Form submitted")  # Add this line
+        assignment_id = request.POST.get('assignment_id')
+        assignment = get_object_or_404(Assignment, id=assignment_id)
+        form = AssignmentSubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.assignment = assignment
+            submission.student = request.user
+            submission.save()
+            return redirect('page_detail', course_slug=course_slug)
+        else:
+            print(form.errors)  # Add this line to check form errors
+    else:
+        form = AssignmentSubmissionForm()
+
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'assignments': assignments,
+        'form': form
+    })

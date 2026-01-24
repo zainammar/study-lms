@@ -85,5 +85,21 @@ function toggleCollapse() {
     <p>{{ assignment.question }}</p>
 {% endfor %}
 </div>
+<!-- pages/templates/pages/course.html -->
+<h1>{{ course.title }}</h1>
 
+{% for assignment in assignments %}
+    <h2>{{ assignment.title }}</h2>
+    <p>{{ assignment.question }}</p>
+    {% if assignment.submitted %}
+        <p>Already submitted</p>
+    {% else %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+            {{ form.as_p }}
+            <button type="submit">Submit Answer</button>
+        </form>
+    {% endif %}
+{% endfor %}
 {% endblock %}
