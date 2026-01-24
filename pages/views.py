@@ -90,3 +90,14 @@ def submit_assignment(request, assignment_id):
         'assignment': assignment,
         'form': form
     })
+
+
+
+def course_detail(request, slug):
+    course = Course.objects.get(slug=slug)
+    assignments = course.assignments.all()
+
+    return render(request, 'page_detail.html', {
+        'course': course,
+        'assignments': assignments
+    })

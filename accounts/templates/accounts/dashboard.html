@@ -16,7 +16,15 @@
                 </a>
             </li>
             <p class="text-2">{{ enrollment.course.description|truncatewords:100}}</p>
-        {% endfor %}
+        
+            <li class="a22">
+            <a href="{% url 'chapter_list' enrollment.course.slug %}">
+               
+                View Course
+            </a>
+        </li>
+            {% endfor %}
+        
     </ul>
 {% else %}
     <p>You are not enrolled in any courses yet.</p>
