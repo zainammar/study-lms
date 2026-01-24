@@ -78,17 +78,12 @@ function toggleCollapse() {
   <h1>{{ course.title }}</h1>
   <p>{{ course.description }}</p>
   
-  <h3>Assignments</h3>
-  {% for assignment in assignments %}
-      <div>
-          <h4>{{ assignment.title }}</h4>
-          <p>{{ assignment.description }}</p>
-          <p>Due: {{ assignment.due_date }}</p>
-      </div>
-  {% empty %}
-      <p>No assignments for this course.</p>
-  {% endfor %}
-  
+<!-- pages/templates/pages/course_detail.html -->
+<h1>{{ course.title }}</h1>
+{% for assignment in assignments %}
+    <p>{{ assignment.title }}</p>
+    <p>{{ assignment.question }}</p>
+{% endfor %}
 </div>
 
 {% endblock %}

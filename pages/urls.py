@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    
+    path('courses/<slug:course_slug>/', views.course_detail, name='page_detail'),
     path('', views.course_list, name='home'),   # 👈 ADD THIS
     path('courses/', views.course_list, name='course_list'),
     path('courses/<slug:course_slug>/', views.chapter_list, name='chapter_list'),

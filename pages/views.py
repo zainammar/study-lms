@@ -8,6 +8,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Assignment
 from .forms import AssignmentSubmissionForm
+from .models import Course
+
+def course_detail(request, course_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    assignments = course.assignments.all()
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'assignments': assignments
+    })
 
 
 # def course_list(request):
@@ -101,3 +110,17 @@ def course_detail(request, slug):
         'course': course,
         'assignments': assignments
     })
+
+
+
+
+# views.py
+def course_detail(request, course_slug):
+    course = get_object_or_404(Course, slug=course_slug)
+    assignments = course.assignments.all()
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'assignments': assignments
+    })
+
+
