@@ -1,3 +1,4 @@
+
 <style>
   .collapse {
     display: none;
@@ -7,6 +8,7 @@
     display: block;
 }
 
+
 </style>
 {% extends 'pages/base.html' %}
 {% block content %}
@@ -15,7 +17,7 @@
 
 
 </div>
-<button class="btn" onclick="toggleCollapse()">Toggle</button>
+<button class="btn" onclick="toggleCollapse()">Course Videos PDF and Text </button>
 
 <div id="box" class="collapse">
   <h3 class="txt-1">{{ course.title }}</h3>
@@ -58,7 +60,7 @@
     </p>
   {% endif %}
 {% else %}
-  <p>Please select a page from the left menu.</p>
+  <!-- <p>Please select a page from the left menu.</p> -->
 {% endif %}
 
 </main>
@@ -75,30 +77,30 @@ function toggleCollapse() {
   <aside style="width:25%; border-right:1px solid #b49494; padding-right:15px;">
    
   </aside>
-  <h1>{{ course.title }}</h1>
+  <h2 class="text-3">{{ course.title }}</h2>
   <p>{{ course.description }}</p>
   
-<!-- pages/templates/pages/course_detail.html -->
+<!-- pages/templates/pages/course_detail.html
 <h1>{{ course.title }}</h1>
 {% for assignment in assignments %}
     <p>{{ assignment.title }}</p>
     <p>{{ assignment.question }}</p>
 {% endfor %}
-</div>
+</div> -->
 <!-- pages/templates/pages/course.html -->
-<h1>{{ course.title }}</h1>
+<!-- <h2>{{ course.title }}</h2> -->
 
 {% for assignment in assignments %}
-    <h2>{{ assignment.title }}</h2>
-    <p>{{ assignment.question }}</p>
-    {% if assignment.submitted %}
-        <p>Already submitted</p>
+<h2 class="text-3">{{ assignment.title }}</h2>
+<p class="text-3">{{ assignment.question }}</p>
+    {% if assignment.submitted %}<br>
+        <p class="text-3">Already submitted</p>
     {% else %}
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+        <br><form method="post" enctype="multipart/form-data">
+            {% csrf_token %} <br>
+            <input type="hidden" name="assignment_id" value="{{ assignment.id }}"><br>
             {{ form.as_p }}
-            <button type="submit">Submit Answer</button>
+            <br>  <button type="submit">Submit Answer</button>
         </form>
     {% endif %}
 {% endfor %}
