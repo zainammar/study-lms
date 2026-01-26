@@ -311,3 +311,50 @@ def page_detail(request, course_slug, chapter_slug, page_slug):
 
 
 
+@login_required
+def page_detail(request, course_slug, chapter_slug, page_slug):
+    course = get_object_or_404(
+        Course.objects.prefetch_related('chapters__pages'),
+        slug=course_slug
+    )
+
+    chapter = get_object_or_404(
+        Chapter,
+        course=course,
+        slug=chapter_slug
+    )
+
+    page = get_object_or_404(
+        Page,
+        chapter=chapter,
+        slug=page_slug
+    )
+
+    assignments = Assignment.objects.filter(course=course)
+    submissions = AssignmentSubmission.objects.filter(student=request.user, assignment__course=course)
+
+    for assignment in assignments:
+        assignment.submitted = submissions.filter(assignment=assignment).exists()
+
+    if request.method == 'POST':
+        assignment_id = request.POST.get('assignment_id')
+        assignment = get_object_or_404(Assignment, id=assignment_id)
+        try:
+            submission = AssignmentSubmission.objects.get(assignment=assignment, student=request.user)
+        except AssignmentSubmission.DoesNotExist:
+            submission = AssignmentSubmission(assignment=assignment, student=request.user)
+        form = AssignmentSubmissionForm(request.POST, request.FILES, instance=submission)
+        if form.is_valid():
+            form.save()
+            return redirect('page_detail', course_slug=course_slug, chapter_slug=chapter_slug, page_slug=page_slug)
+    else:
+        form = AssignmentSubmissionForm()
+
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'chapter': chapter,
+        'page': page,
+        'assignments': assignments,
+        'submissions': submissions,
+        'form': form,
+    })

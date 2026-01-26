@@ -62,7 +62,35 @@
 {% else %}
   <!-- <p>Please select a page from the left menu.</p> -->
 {% endif %}
-
+{% for assignment in assignments %}
+  <h2 class="text-3">{{ assignment.title }}</h2>
+  <p class="text-3">{{ assignment.question }}</p>
+  {% if assignment.submitted %}
+    <br><p class="text-3">Already submitted</p>
+    <p><a href="#" onclick="document.getElementById('submission-{{ assignment.id }}').style.display='block'">View Submission</a></p>
+    <div id="submission-{{ assignment.id }}" style="display:none;">
+      {% for submission in submissions %}
+        {% if submission.assignment == assignment %}
+          <p>Answer: {{ submission.answer_text }}</p>
+          {% if submission.answer_file %}
+            <p>File: <a href="{{ submission.answer_file.url }}">Download</a></p>
+          {% endif %}
+          <p>Marks: {{ submission.marks }}</p>
+          <p>Feedback: {{ submission.feedback }}</p>
+          <button onclick="document.getElementById('submission-{{ assignment.id }}').style.display='none'">Close</button>
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% else %}
+    <br><form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+      {{ form.answer_text.label }}: <input type="text" name="answer_text"><br>
+      {{ form.answer_file.label }}: <input type="file" name="answer_file"><br>
+      <button type="submit">Submit Answer</button>
+    </form>
+  {% endif %}
+{% endfor %}
 </main>
 
 <script>
@@ -71,14 +99,14 @@ function toggleCollapse() {
 }
 </script>
 
+<!-- 
 
-
-  <!-- LEFT SIDEBAR : Course / Chapters / Pages -->
+  LEFT SIDEBAR : Course / Chapters / Pages
   <aside style="width:25%; border-right:1px solid #b49494; padding-right:15px;">
    
   </aside>
   <h2 class="text-3">{{ course.title }}</h2>
-  <p>{{ course.description }}</p>
+  <p>{{ course.description }}</p> -->
   
 <!-- pages/templates/pages/course_detail.html
 <h1>{{ course.title }}</h1>
@@ -90,7 +118,7 @@ function toggleCollapse() {
 <!-- pages/templates/pages/course.html -->
 <!-- <h2>{{ course.title }}</h2> -->
 
-{% for assignment in assignments %}
+<!-- {% for assignment in assignments %}
 <h2 class="text-3">{{ assignment.title }}</h2>
 <p class="text-3">{{ assignment.question }}</p>
     {% if assignment.submitted %}<br>
@@ -125,4 +153,4 @@ function toggleCollapse() {
     <p>Marks: {{ submission.marks }}</p>
     <p>Feedback: {{ submission.feedback }}</p>
     <hr>
-{% endfor %}
+{% endfor %} -->
