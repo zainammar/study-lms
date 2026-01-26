@@ -9,9 +9,11 @@ urlpatterns = [
     path('courses/<slug:course_slug>/', views.chapter_list, name='chapter_list'),
     path('course/<int:course_id>/assignments/', views.assignment_list, name='assignment_list'),
     path('assignment/<int:assignment_id>/submit/', views.submit_assignment, name='submit_assignment'),
+    path('pages/<int:page_id>/', views.page_detail, name='page_detail'),
     path(
         'courses/<slug:course_slug>/<slug:chapter_slug>/<slug:page_slug>/',
         views.page_detail,
         name='page_detail'
     ),
 ]
+#    path('pages/<int:page_id>/', views.page_detail, name='page_detail'),

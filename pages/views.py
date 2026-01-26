@@ -11,7 +11,7 @@ from .models import Course
 from django.contrib.auth.decorators import login_required
 from .models import Course, Assignment, AssignmentSubmission
 from .forms import AssignmentSubmissionForm
-
+from .models import Page, AssignmentSubmission
 
 def course_detail(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
@@ -165,3 +165,16 @@ def course_detail(request, course_slug):
         'assignments': assignments,
         'form': form
     })
+
+
+@login_required
+def page_detail(request, page_id):
+    page = get_object_or_404(Page, id=page_id)
+    submissions = AssignmentSubmission.objects.filter(student=request.user, assignment__course=page.chapter.course)
+    return render(request, 'pages/page_detail.html', {
+        'page': page,
+        'submissions': submissions
+    })
+
+
+
