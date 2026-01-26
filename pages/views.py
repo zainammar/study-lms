@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Course, Assignment, AssignmentSubmission
 from .forms import AssignmentSubmissionForm
 from .models import Page, AssignmentSubmission
+from .models import AssignmentSubmission
 
 def course_detail(request, course_slug):
     course = get_object_or_404(Course, slug=course_slug)
@@ -174,6 +175,138 @@ def page_detail(request, page_id):
     return render(request, 'pages/page_detail.html', {
         'page': page,
         'submissions': submissions
+    })
+
+
+
+
+@login_required
+def results(request):
+    submissions = AssignmentSubmission.objects.filter(student=request.user)
+    return render(request, 'pages/results.html', {
+        'submissions': submissions
+    })
+
+@login_required
+def page_detail(request, course_slug, chapter_slug, page_slug):
+    course = get_object_or_404(
+        Course.objects.prefetch_related('chapters__pages'),
+        slug=course_slug
+    )
+
+    chapter = get_object_or_404(
+        Chapter,
+        course=course,
+        slug=chapter_slug
+    )
+
+    page = get_object_or_404(
+        Page,
+        chapter=chapter,
+        slug=page_slug
+    )
+
+    if not Enrollment.objects.filter(
+        user=request.user,
+        course=course,
+        is_active=True
+    ).exists():
+        messages.error(request, "You are not enrolled in this course.")
+        return redirect('course_list')
+
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'chapter': chapter,
+        'page': page
+    })
+
+
+@login_required
+def page_detail(request, course_slug, chapter_slug, page_slug):
+    course = get_object_or_404(
+        Course.objects.prefetch_related('chapters__pages'),
+        slug=course_slug
+    )
+
+    chapter = get_object_or_404(
+        Chapter,
+        course=course,
+        slug=chapter_slug
+    )
+
+    page = get_object_or_404(
+        Page,
+        chapter=chapter,
+        slug=page_slug
+    )
+
+    assignments = Assignment.objects.filter(course=course)
+
+    if not Enrollment.objects.filter(
+        user=request.user,
+        course=course,
+        is_active=True
+    ).exists():
+        messages.error(request, "You are not enrolled in this course.")
+        return redirect('course_list')
+
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'chapter': chapter,
+        'page': page,
+        'assignments': assignments  # Add assignments to the context
+    })
+
+@login_required
+def page_detail(request, course_slug, chapter_slug, page_slug):
+    course = get_object_or_404(
+        Course.objects.prefetch_related('chapters__pages'),
+        slug=course_slug
+    )
+
+    chapter = get_object_or_404(
+        Chapter,
+        course=course,
+        slug=chapter_slug
+    )
+
+    page = get_object_or_404(
+        Page,
+        chapter=chapter,
+        slug=page_slug
+    )
+
+    assignments = Assignment.objects.filter(course=course)
+    submissions = AssignmentSubmission.objects.filter(student=request.user, assignment__course=course)
+
+    if not Enrollment.objects.filter(
+        user=request.user,
+        course=course,
+        is_active=True
+    ).exists():
+        messages.error(request, "You are not enrolled in this course.")
+        return redirect('course_list')
+
+    if request.method == 'POST':
+        assignment_id = request.POST.get('assignment_id')
+        assignment = get_object_or_404(Assignment, id=assignment_id)
+        form = AssignmentSubmissionForm(request.POST, request.FILES)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.assignment = assignment
+            submission.student = request.user
+            submission.save()
+            return redirect('page_detail', course_slug=course_slug, chapter_slug=chapter_slug, page_slug=page_slug)
+    else:
+        form = AssignmentSubmissionForm()
+
+    return render(request, 'pages/page_detail.html', {
+        'course': course,
+        'chapter': chapter,
+        'page': page,
+        'assignments': assignments,
+        'submissions': submissions,
+        'form': form,
     })
 
 

@@ -1,0 +1,9 @@
+<!-- pages/templates/pages/results.html -->
+<h1>Your Results</h1>
+
+{% for submission in submissions %}
+    <p>Assignment: {{ submission.assignment.title }}</p>
+    <p>Marks: {{ submission.marks }}</p>
+    <p>Feedback: {{ submission.feedback }}</p>
+    <hr>
+{% endfor %}
