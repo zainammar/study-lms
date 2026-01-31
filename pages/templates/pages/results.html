@@ -1,9 +1,25 @@
-<!-- pages/templates/pages/results.html -->
-<h1>Your Results</h1>
+{% extends "pages/base.html" %}
 
-{% for submission in submissions %}
-    <p>Assignment: {{ submission.assignment.title }}</p>
-    <p>Marks: {{ submission.marks }}</p>
-    <p>Feedback: {{ submission.feedback }}</p>
-    <hr>
-{% endfor %}
+{% block title %}My Results{% endblock %}
+
+{% block content %}
+<h1>My Assignment Results</h1>
+
+{% if results %}
+    <ul>
+    {% for result in results %}
+        <li>
+            <strong>Assignment:</strong> {{ result.assignment.title }} <br>
+            <strong>Course:</strong> {{ result.assignment.course.title }} <br>
+            <strong>Submitted At:</strong> {{ result.submitted_at|date:"d M Y H:i" }} <br>
+            <strong>Marks:</strong> {% if result.marks %}{{ result.marks }}{% else %}Not graded{% endif %} <br>
+            <strong>Checked:</strong> {% if result.is_checked %}Yes{% else %}No{% endif %}
+        </li>
+        <hr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+
+{% endblock %}
