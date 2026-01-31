@@ -1,0 +1,9 @@
+
+<h2>{{ assignment.title }}</h2>
+<p>{{ assignment.question }}</p>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Upload PDF</button>
+</form>

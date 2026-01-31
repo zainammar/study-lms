@@ -1,0 +1,43 @@
+{% extends "pages/base.html" %}
+{% block title %}My Fees{% endblock %}
+
+{% block content %}
+<h2>Fee Details</h2>
+
+<p>
+<strong>Student:</strong> {{ student.first_name }} {{ student.last_name }} <br>
+<strong>GR Number:</strong> {{ student.gr_number }} <br>
+<strong>Class:</strong> {{ student.class_name }} - {{ student.section_name }}
+</p>
+
+<hr>
+
+{% if fees %}
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Amount</th>
+            <th>Paid On</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fee in fees %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fee.amount }}</td>
+            <td>{{ fee.paid_on }}</td>
+            <td>{{ fee.remarks|default:"-" }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Total Paid: {{ total_paid }}</h3>
+
+{% else %}
+<p>No fee records found.</p>
+{% endif %}
+
+{% endblock %}

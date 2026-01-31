@@ -1,0 +1,27 @@
+{% extends "pages/base.html" %}
+{% block content %}
+
+<h2>Live Classes – {{ course.title }}</h2>
+
+{% for live in live_classes %}
+    <div style="border:1px solid #ddd; padding:10px; margin-bottom:10px;">
+        <h4>{{ live.title }}</h4>
+        <p>{{ live.start_time|date:"d M Y, h:i A" }}</p>
+
+        {% if enrollment.is_active %}
+            <a href="{{ live.meeting_link }}"
+               target="_blank"
+               class="btn">
+               🔴 Join Live Class
+            </a>
+        {% else %}
+            <button class="btn" disabled>
+                ❌ Course Expired
+            </button>
+        {% endif %}
+    </div>
+{% empty %}
+    <p>No live classes scheduled.</p>
+{% endfor %}
+
+{% endblock %}

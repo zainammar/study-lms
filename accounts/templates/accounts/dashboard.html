@@ -1,0 +1,35 @@
+{% extends "pages/base.html" %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h2>My Courses</h2>
+
+{% if enrollments %}
+    <ul>
+        {% for enrollment in enrollments %}
+            <li class="a21">
+                <a href="{% url 'chapter_list' enrollment.course.slug %}">
+                    {{ enrollment.course.title }}
+                </a>
+            </li>
+
+            <p class="text-2">{{ enrollment.course.description|truncatewords:100 }}</p>
+
+            <p>
+                <strong>Expires At:</strong> {{ enrollment.expires_at|date:"d M Y, h:i A" }}
+                {% if not enrollment.is_active %}
+                    <span style="color:red;">⚠️ Course expired</span>
+                {% endif %}
+            </p>
+
+            <li class="a22">
+                <a href="{% url 'chapter_list' enrollment.course.slug %}">View Course</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>You are not enrolled in any courses yet.</p>
+{% endif %}
+{% endblock %}
