@@ -45,7 +45,7 @@ body{
     display: inline-block;
     padding: 10px 20px;       /* size of button */
     background-color:#fd7b01;; /* blue background */
-    color: white;             /* text color */
+    color: rgb(0, 0, 0);             /* text color */
     text-decoration: none;    
     border-radius: 5px;    
     font-weight: bold;
@@ -54,6 +54,7 @@ body{
 
 .btn:hover {
     background-color:  #031D44;/* darker blue on hover */
+    color: #fd7b01;  
 }
 
 .content-wrapper {
@@ -99,7 +100,7 @@ body{
 .txt-3{
     font-family: 'Arial', sans-serif;
     font-size: 18px;
-    color: #fd7b01;
+    color: #000000;
     padding: 10px;
     line-height: 1.5;
     text-align: left;
@@ -203,18 +204,22 @@ body{
 
 
  input { 
-    width: 70%; 
-    padding: 8px; 
-    margin: 5px 0;
- }
-        
+    border:  #d19393;
+    border-style: double;
+    width: 100%;
+    height: 60px;
+    padding-top: 0px;
+    padding-bottom: 180px;
+}
+   
+
     
 button { 
     
         width:50%; 
         padding: 10px; 
         background: #DA7422; 
-        color: white; 
+        color: rgb(0, 0, 0); 
         border: none; 
         cursor: pointer; 
     }
@@ -235,7 +240,8 @@ button :hover {
         padding: 5px 10px;
         border-radius: 5px;
         background: #DA7422; 
-        color:white;
+        color:rgb(0, 0, 0);
+        
 
          }
 
