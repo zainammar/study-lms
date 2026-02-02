@@ -1,6 +1,16 @@
 body{
     background-color: #FFFBDB;
 }
+
+
+.theme{
+      
+    background-color:  #FFFBDB;
+    background-color:  #031D44;
+    background-color:  #DA7422;
+    background-color:  #2191FB;
+}
+
 /* static/css/style.css */
 .page-list {
     list-style-type: none; /* removes bullets */
@@ -34,7 +44,7 @@ body{
 .btn {
     display: inline-block;
     padding: 10px 20px;       /* size of button */
-    background-color: #007bff; /* blue background */
+    background-color:#fd7b01;; /* blue background */
     color: white;             /* text color */
     text-decoration: none;    
     border-radius: 5px;    
@@ -43,7 +53,7 @@ body{
 }
 
 .btn:hover {
-    background-color: #0056b3; /* darker blue on hover */
+    background-color:  #031D44;/* darker blue on hover */
 }
 
 .content-wrapper {
@@ -71,11 +81,10 @@ body{
 
 
 .txt-2{
-   
     font-family: 'Arial', sans-serif;
     font-size: 12px;
     margin: 10px;
-    color: #002fff;
+    color: #000000;;
     padding: 10px;
     line-height: 1.5;
     text-align: left;
@@ -90,7 +99,7 @@ body{
 .txt-3{
     font-family: 'Arial', sans-serif;
     font-size: 18px;
-    color: #1900ff;
+    color: #fd7b01;
     padding: 10px;
     line-height: 1.5;
     text-align: left;
@@ -230,7 +239,8 @@ button :hover {
 
          }
 
-
+         
+        
     /* 
     #E0E0E0
     #031D44
@@ -239,3 +249,5 @@ button :hover {
     #2191FB 
     
     */
+
+

@@ -1,7 +1,7 @@
 {% extends 'pages/base.html' %}
 
 {% block content %}
-
+<!-- 
 <style>
 .collapse {
     display: none;
@@ -9,113 +9,129 @@
 .collapse.show {
     display: block;
 }
-</style>
 
-<div class="container" style="display:flex; gap:20px;">
-</div>
+</style> -->
 
-<button class="btn" onclick="toggleCollapse()">
-  Course Videos PDF and Text
-</button>
+<div class="containerC">
+  <div>
+    <h3 class="">Course </h3>
+   <ul>
+    <li> Videos </li>
+    <li> PDF </li>
+    <li> Text </li>
+  
+   </ul>
+    
+    <div>
+      <h3 class="txt-1">{{ course.title }}</h3>
+    
+      <ul>
+        {% for chapter in course.chapters.all %}
+          <li>
+            <strong>{{ chapter.title }}</strong>
+            <ul>
+              {% for p in chapter.pages.all %}
+                <li>
+                  <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}">
+                    {{ p.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div>
+    
 
-<div id="box" class="collapse">
-  <h3 class="txt-1">{{ course.title }}</h3>
 
-  <ul>
-    {% for chapter in course.chapters.all %}
-      <li>
-        <strong>{{ chapter.title }}</strong>
-        <ul>
-          {% for p in chapter.pages.all %}
-            <li>
-              <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}" class="txt-2">
-                {{ p.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
+         {% if page %}
+         <h3 class="txt-1">{{ page.title }}</h3>
+         {% if page.video %}
+         <video controls width="100%">
+           <source src="{{ page.video.url }}">
+         </video>
+         <p class="txt-3">{{ page.content }}</p>
+         
+     
+         {% endif %}
+         
+         {% if page.pdf %}
+           <p>
+             <a href="{{ page.pdf.url }}" target="_blank" class="btn">
+               📄 Download PDF
+             </a>
+           </p>
+         {% endif %}
+         {% endif %}
 
-<!-- RIGHT CONTENT : Page Detail -->
 
-{% if page %}
-  <h1 class="txt-1">{{ page.title }}</h1>
-  <p class="txt-3">{{ page.content }}</p>
-
-  {% if page.video %}
-    <video controls width="100%">
-      <source src="{{ page.video.url }}">
-    </video>
-  {% endif %}
-
-  {% if page.pdf %}
-    <p>
-      <a href="{{ page.pdf.url }}" target="_blank" class="btn">
-        📄 Download PDF
-      </a>
-    </p>
-  {% endif %}
-{% endif %}
-
+  </div>
+  <div>
+    
 <!-- ASSIGNMENTS -->
 
 {% for assignment in assignments %}
-  <h2 class="text-3">{{ assignment.title }}</h2>
-  <p class="text-3">{{ assignment.question }}</p>
+<h2 class="text-3">{{ assignment.title }}</h2>
+<p class="text-3">{{ assignment.question }}</p>
 
-  {% if assignment.submitted %}
-    <p class="text-3">Already submitted</p>
+{% if assignment.submitted %}
+  <p class="text-3">Already submitted</p>
 
-  
-      <button><a href="#" onclick="document.getElementById('submission-{{ assignment.id }}').style.display='block'">
-        View Submission
-      </a>
-    </button>
 
-    <div id="submission-{{ assignment.id }}" style="display:none;">
-      {% for submission in submissions %}
-        {% if submission.assignment == assignment %}
-        <br>
-          <p>Answer: {{ submission.answer_text }}</p>
+    <button><a href="#" onclick="document.getElementById('submission-{{ assignment.id }}').style.display='block'">
+      View Submission
+    </a>
+  </button>
 
-          {% if submission.answer_file %}
-            <p>
-              File: <a href="{{ submission.answer_file.url }}">Download</a>
-            </p>
-          {% endif %}
+  <div id="submission-{{ assignment.id }}" style="display:none;">
+    {% for submission in submissions %}
+      {% if submission.assignment == assignment %}
+      <br>
+        <p>Answer: {{ submission.answer_text }}</p>
 
-          <p>Marks: {{ submission.marks }}</p>
-          <p>Feedback: {{ submission.feedback }}</p>
-
-          <button onclick="document.getElementById('submission-{{ assignment.id }}').style.display='none'">
-            Close
-          </button>
+        {% if submission.answer_file %}
+          <p>
+            File: <a href="{{ submission.answer_file.url }}">Download</a>
+          </p>
         {% endif %}
-      {% endfor %}
-    </div>
 
-  {% else %}
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %} <br>
-      <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+        <p>Marks: {{ submission.marks }}</p>
+        <p>Feedback: {{ submission.feedback }}</p>
 
-      <p>
-        {{ form.answer_text.label }}:
-        <input type="text" name="answer_text">
-      </p>
+        <button onclick="document.getElementById('submission-{{ assignment.id }}').style.display='none'">
+          Close
+        </button>
+      {% endif %}
+    {% endfor %}
+  </div>
 
-      <p>
-        {{ form.answer_file.label }}:
-        <input type="file" name="answer_file">
-      </p>
+{% else %}
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %} <br>
+    <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
 
-      <button type="submit">Submit Answer</button>
-    </form>
-  {% endif %}
+    <p>
+      {{ form.answer_text.label }}:
+      <input type="text" name="answer_text">
+    </p>
+
+    <p>
+      {{ form.answer_file.label }}:
+      <input type="file" name="answer_file">
+    </p>
+
+    <button type="submit">Submit Answer</button>
+  </form>
+{% endif %}
 {% endfor %}
+
+  </div>
+
+</div>
+
 
 <script>
 function toggleCollapse() {

@@ -41,16 +41,20 @@
         /* NAVBAR */
         .topnav {
             overflow: hidden;
-            background-color: #000000;
+            background-color: #031D44; 
         }
 
         .topnav a {
             float: left;
             display: block;
-            color: #f2f2f2;
-            padding: 14px 16px;
+            color: #FFFBDB;
+            padding: 12px 14px;
+            font-family: Arial, Helvetica, sans-serif;
             text-decoration: none;
-            font-size: 17px;
+            font-size: 12px;
+            font-weight: bold;
+            font-stretch: expanded;
+
             
         }
 
@@ -63,6 +67,29 @@
 
         .topnav .icon {
             display: none;
+        }
+
+
+        /* RESPONSIVE */
+        @media screen and (max-width: 600px) {
+            .topnav a:not(:first-child) {
+                display: none;
+            }
+
+            .topnav a.icon {
+                float: right;
+                display: block;
+            }
+
+            .topnav.responsive {
+                position: relative;
+            }
+
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
         }
 
         /* GRID */
@@ -101,8 +128,25 @@
         
         }
 
+        .text-4 {
+            color: rgb(255, 255, 255);
+            font-size: 16px;
+            text-align: left;
+            padding: 5px;
+            margin: 5px;
+            line-height: 1.5;
+        }
+        .text-5 {
+            color: rgb(255, 255, 255);
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: left;
+            padding: 5px;
+            margin: 5px;
+            line-height: 1.5;
+        }
         #id_answer_file{
-            background-color: #a5c4ff;
+            background-color: #DA7422;
             color: rgb(0, 0, 0);
             font-size: 16px;
             text-align: left;
@@ -123,28 +167,6 @@
         }
 
        
-        /* RESPONSIVE */
-        @media screen and (max-width: 600px) {
-            .topnav a:not(:first-child) {
-                display: none;
-            }
-
-            .topnav a.icon {
-                float: right;
-                display: block;
-            }
-
-            .topnav.responsive {
-                position: relative;
-            }
-
-            .topnav.responsive a {
-                float: none;
-                display: block;
-                text-align: left;
-            }
-        }
-
         .a21{ 
             list-style: none; 
             padding: 05px;
@@ -160,11 +182,11 @@
         .a22{ 
             list-style: none; 
             padding: 05px;
-            background-color: #b8f1f5;
+            background-color: #DA7422;
             margin: 10px;
             border-radius: 5px;
             font-size: 16px;
-            color:rgb(0, 0, 0);
+            color:rgb(255, 254, 254);
             padding: 14px 40px;
             text-decoration: none;
             text-align: right;
@@ -206,7 +228,7 @@
 
 .footer h3 {
     margin-bottom: 15px;
-    color: #04AA6D;
+    color: #fd7b01
 }
 
 .footer p {
@@ -224,13 +246,13 @@
 }
 
 .footer ul li a {
-    color: #ddd;
+    color: #fd7b01;
     text-decoration: none;
     font-size: 14px;
 }
 
 .footer ul li a:hover {
-    color: #04AA6D;
+    color: #ffffff;
 }
 
 .footer-bottom {
@@ -279,7 +301,7 @@
                    }
 
         .containerx ul li a:hover {
-            color: #04AA6D;
+            color:  #ffffff;
         }
         input {
   width: 80%;
@@ -363,8 +385,10 @@
   <div class="footer-container">
 
       <div>
-          <h3>Study LMS</h3>
-          <p>
+        <p class="text-5">
+          Massage 
+        </p>
+          <p class="text-4">
               A modern Learning Management System to manage courses,
               students, and progress efficiently.
           </p>
@@ -393,7 +417,10 @@
   </div>
 
   <div class="footer-bottom">
-      © {{ now|date:"Y" }} Study LMS. All Rights Reserved.
+    <p class="text-4">
+        © {{ now|date:"Y" }} Study LMS. All Rights Reserved.
+        </p>
+   
   </div>
 </footer>
 
