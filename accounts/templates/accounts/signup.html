@@ -1,15 +1,7 @@
-
-
-<!-- <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form> -->
+{% extends "pages/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Sign Up</title>
+
+{% block content %}
     <style>
         /* body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; } */
         input { width: 70%; padding: 8px; margin: 5px 0; }
@@ -89,6 +81,5 @@
 
 </div>
 </div>
-  
-</body>
-</html>
+
+{% endblock %}
