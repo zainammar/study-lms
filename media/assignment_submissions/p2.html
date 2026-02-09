@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Starter Plan - $20</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --primary: #00ffd5;
+  --bg: #0f172a;
+  --card: #111827;
+  --text: #e5e7eb;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
+/* ENTRY ANIMATION */
+.wrapper {
+  animation: slideUp 1s ease forwards;
+  opacity: 0;
+}
+
+.pricing-card {
+  width: 360px;
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease;
+}
+
+/* WAVE GLOW */
+.pricing-card::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0,255,213,0.15), transparent 60%);
+  animation: wave 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+.pricing-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.pricing-card:hover {
+  transform: perspective(800px) rotateX(4deg) rotateY(-4deg);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 16px;
+  border-radius: 50px;
+  background: rgba(0,255,213,0.15);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 6px;
+}
+
+.subtitle {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.price {
+  margin: 22px 0;
+  font-size: 44px;
+  font-weight: 700;
+  color: var(--primary);
+  animation: heartbeat 2.2s infinite;
+}
+
+.price span {
+  font-size: 14px;
+  color: var(--text);
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+}
+
+ul li {
+  font-size: 14px;
+  margin: 12px 0;
+}
+
+ul li::before {
+  content: "✔";
+  color: var(--primary);
+  margin-right: 10px;
+}
+
+.offer {
+  background: rgba(0,255,213,0.07);
+  border-left: 3px solid var(--primary);
+  padding: 14px;
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+button {
+  width: 100%;
+  margin-top: 24px;
+  padding: 15px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: #000;
+  background: linear-gradient(90deg, var(--primary), #00bfa6);
+  transition: 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+}
+
+/* ANIMATIONS */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes wave {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(40px) translateY(30px); }
+  100% { transform: translateX(0) translateY(0); }
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="pricing-card">
+    <div class="badge">LIMITED $20 DEAL</div>
+
+    <h1>💡 Starter Plan</h1>
+    <p class="subtitle">Everything you need to launch fast & look professional</p>
+
+    <div class="price">$20 <span>/ One-time</span></div>
+
+    <ul>
+      <li>Professional design</li>
+      <li>Mobile-friendly layout</li>
+      <li>Up to 3 pages</li>
+      <li>Basic SEO setup</li>
+      <li>Fast loading speed</li>
+      <li>7 days support</li>
+      <li>Domain Hosting not Included</li>
+    </ul>
+
+    <div class="offer">
+      🎁 <strong>Limited Offer:</strong><br>
+      🎉 You’re getting a premium website for just $20!
+    </div>
+
+    <button="#">Get Started Now</button>
+  </div>
+</div>
+
+<!-- <script>
+function buy() {
+  alert("🎉 You’re getting a premium website for just $20!");
+}
+</script> -->
+
+</body>
+</html>

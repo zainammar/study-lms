@@ -3,32 +3,29 @@
 
 {% extends 'pages/base.html' %}
 {% block content %}
-<h3 class="txt-2">Study LMS</h3>
+
 <h1 class="txt-1">{{ course.title }}</h1>
-<div class="containera">
-  <div>
-    {% for chapter in course.chapters.all %} 
-    <li>{{ chapter.title }}
-  
-      <ul>
-        {% for page in chapter.pages.all %}
-          <li>
-  
-            <ul class="txt-1">
-              <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}" class="txt-2">
-                {{ page.title }}
-              </a>
-            </li>
-          
-          </ul>
-          </li>
-          {% endfor %}
-  </div>
- <!-- <div>
- 
-  </div> -->
-  <div>
-    {% if chapter.course.slug %}
+
+<ul class="txt-1">
+{% for chapter in course.chapters.all %} 
+  <li>{{ chapter.title }}
+
+    <ul>
+      {% for page in chapter.pages.all %}
+        <li>
+
+
+
+
+          <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}" class="txt-2">
+            {{ page.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+
+{% if chapter.course.slug %}
     <a href="{% url 'live_classes' chapter.course.slug %}">
         📺 Live Classes
     </a>
@@ -37,11 +34,3 @@
 {% endfor %}
 </ul>
 {% endblock %}
-  </div>
-
-</div>
-
-
-
-
-

@@ -2,7 +2,6 @@ from django.contrib import admin
 from .models import Course, Chapter, Page, Enrollment, Assignment, AssignmentSubmission
 from django.contrib import admin
 from .models import LiveClass
-from .models import Enrollment
 
 
 @admin.register(LiveClass)
@@ -75,10 +74,3 @@ class AssignmentSubmissionAdmin(admin.ModelAdmin):
     list_filter = ('is_checked', 'assignment')
     search_fields = ('student__username',)
     ordering = ('-submitted_at',)
-
-
-def results(request):
-    # Example: get all enrollments for the logged-in user
-    results = Enrollment.objects.filter(user=request.user)
-    context = {'results': results}
-    return render(request, 'pages/results.html', context)

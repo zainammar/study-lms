@@ -3,31 +3,7 @@
 
 {% block content %}
 <h2>Fee Details</h2>
-<style>
-    .grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
-}
 
-.grid-header, .grid-row, .grid-footer {
-    display: contents;
-}
-
-.grid-header > div, .grid-row > div, .grid-footer > div {
-    padding: 8px;
-    border: 1px solid #ddd;
-}
-
-.grid-header > div {
-    font-weight: bold;
-}
-
-.grid-footer > div:first-child {
-    grid-column: 1 / -1;
-    font-weight: bold;
-}
-</style>
 <p>
 <strong>Student:</strong> {{ student.first_name }} {{ student.last_name }} <br>
 <strong>GR Number:</strong> {{ student.gr_number }} <br>
@@ -37,30 +13,31 @@
 <hr>
 
 {% if fees %}
-<div class="grid-container">
-    {% if fees %}
-        <div class="grid-header">
-            <div>#</div>
-            <div>Amount</div>
-            <div>Paid On</div>
-            <div>Remarks</div>
-        </div>
+<table border="1" cellpadding="8">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Amount</th>
+            <th>Paid On</th>
+            <th>Remarks</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for fee in fees %}
-        <div class="grid-row">
-            <div>{{ forloop.counter }}</div>
-            <div>{{ fee.amount }}</div>
-            <div>{{ fee.paid_on }}</div>
-            <div>{{ fee.remarks|default:"-" }}</div>
-        </div>
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ fee.amount }}</td>
+            <td>{{ fee.paid_on }}</td>
+            <td>{{ fee.remarks|default:"-" }}</td>
+        </tr>
         {% endfor %}
-        <div class="grid-footer">
-            <div>Total Paid: {{ total_paid }}</div>
-          
-        </div>
-    {% else %}
-        <p>No fee records found.</p>
-    {% endif %}
-</div>
+    </tbody>
+</table>
+
+<h3>Total Paid: {{ total_paid }}</h3>
+
+{% else %}
+<p>No fee records found.</p>
 {% endif %}
 
 {% endblock %}

@@ -1,124 +1,104 @@
 {% extends "pages/base.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-{% block title %}Login{% endblock %}
 
 {% block content %}
-<style>
-    label {
-    background-color: #031D44;
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    text-align: left;
-    font-weight: bolder;
-    padding: 15px;
-    margin:15px;
-    line-height: 1.5;
-    border-radius: 10px;
-}
-input { 
-    width: 70%; 
-    height: 50px;
-    padding: 8px; 
-    margin: 5px 0;
- }
-        
-    
-</style>
+
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+<div class="containerb">
+    <div></div>
+    <div class="div-2">
+        <img src="{% static 'images/logo.png' %}"
+             alt="logo"
+             style="max-width:10%; height:auto; margin-bottom:20px;">
+
+        <h1>Welcome to Study LMS</h1>
+
+        <p>
+            Your journey to knowledge begins here. Sign up to access a world of
+            learning resources and connect with fellow learners.
+        </p>
+
+        <p>
+            This Learning Management System (LMS) is a web-based platform developed
+            using Django that allows users to access structured educational content
+            such as videos, PDF documents, and text-based lessons.
+        </p>
+    </div>
+    <div></div>
+</div>
+
 <div class="containera">
-   
-    <div>
-    <img class="img-1" src="{% static 'images/signup.png' %}"
-    alt="logo">
-</div>
-    <div>
-        
-
-
-<h2>Login</h2>
-{% if messages %}
-    {% for message in messages %}
-        <div class="messages">{{ message }}</div>
-    {% endfor %}
-{% endif %}<br>
-<form method="post"><br>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-</form>
-
-<div class="links">
-    <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
-    <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
-</div>
-
-</div>
-
-
-</div>
-
-
-</div>
-<div class="containerC">
-
-    <div>
-          
+    <div class="div-2">
         <h2>User Authentication</h2>
         <ul>
-         <li> User Sign Up, Login, and Logout </li>
-         <li> Secure authentication using Django’s built-in auth system </li> 
-         <li> User profiles for managing personal information </li> 
-
-      
-    </div>
-    <div>
-    </ul>
-    <h2>Course Management</h2>
-    <ul>
-     <li> Course </li>
-     <li> Chapters </li>
-     <li> Pages/Lessons </li>
-    </ul>
-    </div>
-    <div>
-       <h2>Each lesson can include:</h2>
-       <ul>
-         <li>  📄 Text content</li>
-         <li> 🎥 Video files </li>
-         <li>📑 PDF resources</li>
-         <li>📑 Assigments</li>
-         <li>Live Classes</li>
+            <li>User Sign Up, Login, and Logout</li>
+            <li>Secure authentication using Django’s built-in auth system</li>
+            <li>User profiles for managing personal information</li>
         </ul>
-  
 
-   
-       
-    </div>
-    <div>
-        <h2>🔐 Course Access Control </h2>
+        <h2>Course Management</h2>
         <ul>
-        <li> Free courses are automatically available to all registered users  </li>
-        <li> Restricted courses are assigned manually by the Admin  </li>
-        <li> Users can only access courses they are enrolled in  </li>
-        <li> Unauthorized users are blocked from viewing protected content  </li>
-     </ul>
-    </div>
-    <div>
-        <h2> 🛠 Admin Panel </h2>
-        <ul>
-            <li>Create, update, and delete courses, chapters, and lessons </li>
-            <li>Upload videos and PDFs </li>
-            <li>Enroll or remove users from specific courses </li>
-            <li>Manage users and content through Django Admin </li>
+            <li>Courses</li>
+            <li>Chapters</li>
+            <li>Pages / Lessons</li>
+        </ul>
 
+        <h2>Each lesson can include:</h2>
+        <ul>
+            <li>📄 Text content</li>
+            <li>🎥 Video files</li>
+            <li>📑 PDF resources</li>
         </ul>
     </div>
-    <div>
-        <img class="img-1" src="{% static 'images/signup.png' %}"
-        alt="logo">
-    
+
+    <div class="div-1">
+        <h2>Login</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="messages">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button>
+        </form>
+
+        <div class="links">
+            <p>
+                Don't have an account?
+                <a href="{% url 'signup' %}">Sign up here</a>
+            </p>
+            <p>
+                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+            </p>
+        </div>
     </div>
-   
+</div>
+
+<div class="containerC">
+    <div class="div-2">
+        <h2>🔐 Course Access Control</h2>
+        <ul>
+            <li>Free courses are automatically available to all registered users</li>
+            <li>Restricted courses are assigned manually by the Admin</li>
+            <li>Users can only access courses they are enrolled in</li>
+            <li>Unauthorized users are blocked from viewing protected content</li>
+        </ul>
+    </div>
+
+    <div class="div-2">
+        <h2>🛠 Admin Panel</h2>
+        <ul>
+            <li>Create, update, and delete courses, chapters, and lessons</li>
+            <li>Upload videos and PDFs</li>
+            <li>Enroll or remove users from specific courses</li>
+            <li>Manage users and content through Django Admin</li>
+        </ul>
+    </div>
 </div>
 
 {% endblock %}

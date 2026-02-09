@@ -387,17 +387,3 @@ def page_detail(request, course_slug, chapter_slug, page_slug):
         'submissions': submissions,
         'form': form,
     })
-
-
-# pages/views.py
-from django.shortcuts import render
-from .models import AssignmentSubmission
-
-def results(request):
-    # Get all submissions for the logged-in user
-    results = AssignmentSubmission.objects.filter(student=request.user)
-
-    context = {
-        'results': results
-    }
-    return render(request, 'pages/results.html', context)
