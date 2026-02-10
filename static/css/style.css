@@ -144,7 +144,6 @@ body{
   .containera {
     display: grid;
     grid-template-columns: 50% 50%;
-    background-color: #000000;
     padding: 5px;
     gap: 5px;
   }
@@ -234,8 +233,8 @@ body{
 }
 
 label{
-    background-color: #000000;
-    color: rgb(252, 252, 252);
+    background-color: #DA7422;
+    color: rgb(0, 0, 0);
     font-size: 16px;
     text-align: left;
     font-weight: bolder;
@@ -409,6 +408,6 @@ button:hover{
       color: #04AA6D;
   }
   input {
-width: 80%;
-height: 250px;
+    width:100%;
+    height:35px;
 }

@@ -134,17 +134,7 @@
 
            }
         
-           ::file-selector-button {
-          border: 2px solid black;
-          padding: 5px 10px;
-          border-radius: 5px;
-          background-color:#DA7422;
-          color:white;
-
-           }
-
-       
-
+           
 
 
         .current-image {
@@ -155,7 +145,24 @@
             border: 3px solid #2196F3;
         }
 
-     
+        button{
+            background-color:#8cbee8;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            font-size: 15px;
+            margin: 2px 1px;
+            cursor: pointer;
+            border: 3px solid #000000;
+            border-radius: 10px;
+        }
+        button:hover{
+            background-color: #efeab4;
+        }
         /* RESPONSIVE */
         @media screen and (max-width: 600px) {
             .topnav a:not(:first-child) {
@@ -346,6 +353,7 @@
             <a href="/logout/">Logout</a>
             <a href="/profile/">Edit Profile</a>
             <a href="{% url 'results' %}" target="_blank">View Results</a>
+            <a href="{% url 'student_fees' %}">My Fees</a>
            
         
 
