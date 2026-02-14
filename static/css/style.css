@@ -12,15 +12,7 @@ body{
 #2191FB
 */
 
-
-.buxbuny{
-    background-color:#E0E0E0  ;
-    background-color: #031D44;
-    background-color: #FFFBDB;
-    background-color: #DA7422;
-    background-color: #2191FB;
-    }
-
+ 
 .page-list {
     list-style-type: none; /* removes bullets */
     padding: 0;
@@ -59,59 +51,7 @@ body{
 }
 
 
-.txt-1{
-    background-color: rgb(209, 218, 223);
-    font-family: 'Arial', sans-serif;
-    font-size: 22px;
-    color: #000000;
-    padding: 10px;
-    padding-bottom: 10px;
-    padding-top: 10px;
-    line-height: 1.5;
-    text-align: left;
-    text-decoration: none;
-}
 
-
-
-
-.txt-2{
-   
-    font-family: 'Arial', sans-serif;
-    font-size: 12px;
-    margin: 10px;
-    color: #002fff;
-    padding: 10px;
-    line-height: 1.5;
-    text-align: left;
-    text-decoration: none;
-}
-.txt-2:hover {
-    color: #fd7b01; /* darker blue on hover */
-}
-
-
-
-.txt-3{
-    font-family: 'Arial', sans-serif;
-    font-size: 18px;
-    color: #1900ff;
-    padding: 10px;
-    line-height: 1.5;
-    text-align: left;
-    text-decoration: none;
-} 
-.text-1{
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
-    color: #000000;
-    padding: 10px;
-    line-height: 1.5;
-    text-align: left;
-    text-decoration: none;
-    padding: 10px;
-    margin: 10px;
-}
 /* Login Signup */
 
 .containerb {
@@ -168,6 +108,134 @@ body{
     text-align: center;
     text-decoration: none;
   }
+  .containerE {
+    display: grid;
+    grid-template-columns:70% 30%;
+    padding: 5px;
+    gap: 5px;
+  }
+  .containerE div {
+
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .containerF {
+    display: grid;
+    grid-template-columns:20% 70%;
+    padding: 5px;
+    gap: 5px;
+  }
+  .containerF div {
+
+    padding: 10px;
+    font-size: 15px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+/* GRID */
+
+  /* Grid Content */
+  .content-grid {
+    display: grid;
+    gap: 10px;
+  }
+  
+ 
+
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 200px 300px; /* First column 200px, second column 300px */
+
+    
+  }
+  
+  .grid-item-1 {
+    padding:10px;
+  
+  }
+  
+  .grid-item-2 {
+    font-family: cursive;
+    font-size: 18px;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+  }
+  
+  /* Mobile First - 1 column for all rows */
+  .row-1, .row-2, .row-3, .row-4 {
+    display: grid;
+   
+    
+   
+  }
+   /* Desktop View */
+   @media screen and (min-width: 768px) {
+  
+    /* 1 column, 1 row (remains the same) */
+    .row-1 {
+        grid-template-columns: 1fr;
+       
+    }
+  
+    /* 2 columns, 1 row */
+    .row-2 {
+        grid-template-columns: 1fr 1fr;
+        
+        
+    }
+  
+    /* 3 columns, 1 row */
+    .row-3 {
+        grid-template-columns: 1fr 1fr 1fr;
+       
+    }
+  
+    /* 4 columns, 1 row */
+    .row-4 {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+       
+    }
+  
+    /* 5 columns, 1 row */
+    .row-5 {
+      grid-template-columns: 1fr 2fr 1fr 1fr;
+     
+  }
+
+      /*6 columns, 1 row */
+      .row-6 {
+        grid-template-columns: 1fr 3fr 1fr;
+       
+    }
+
+        /*6 columns, 1 row */
+        .row-7 {
+            grid-template-columns: 3fr 3fr 1fr ;
+         
+      }
+
+       /*6 columns, 1 row */
+       .row-8 {
+        grid-template-columns: 3fr 3fr 3fr ;
+       
+    }
+
+          /*6 columns, 1 row */
+          .row-9 {
+            grid-template-columns: 3fr 1fr;
+           
+        }
+    
+
+  }
+  
 
 
   .div-1{
@@ -182,11 +250,6 @@ body{
        padding: 0px; 
   }
 
-  
- h2{
-    text-align: left;
- }
-  /* GRID */
   .container {
     display: grid;
     grid-template-columns: 60% 30% 10%;
@@ -194,33 +257,151 @@ body{
     align-items: center;
 }
 
-.text-1 {
-    color: rgb(9, 1, 66);
-    font-size: 16px;
-    text-align: center;
+
+
+ .buxbuny{
+    background-color:#E0E0E0  ;
+    background-color: #031D44;
+    background-color: #FFFBDB;
+    background-color: #DA7422;
+    background-color: #2191FB;
+    }
+  /* text*/
+ .heading-2b{
+
+    background-color:#2191FB;
+    font-family: 'Arial', sans-serif;
+    font-size: 22px;
+    color: #ffffff;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+}
+h2{
+    text-align: left;
+
+ }
+.txt-1{
+    background-color: rgb(209, 218, 223);
+    font-family: 'Arial', sans-serif;
+    font-size: 22px;
+    color: #000000;
+    padding: 10px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
 }
 
-.text-2 {
-    color: rgb(9, 1, 66);
-    font-size: 16px;
+
+
+
+.txt-2{
+   
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    margin: 10px;
+    color: #002fff;
+    padding: 10px;
+    line-height: 1.5;
     text-align: left;
+    text-decoration: none;
+}
+.txt-2:hover {
+    color: #fd7b01; /* darker blue on hover */
+}
+
+
+
+.txt-3{
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
+    color: #1900ff;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
+} 
+.text-1{
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #000000;
+    padding: 10px;
+    line-height: 1.5;
+    text-align: left;
+    text-decoration: none;
     padding: 10px;
     margin: 10px;
-    line-height: 1.5;
-    text-indent: 50px;
-
-    
 }
-.text-3 {
-    color: rgb(0, 0, 0);
-    font-size: 16px;
+
+.fantasy-text{
+    background-color: #031D44;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 30px;
+    color: #ffffff;
+    padding: 10px;
+    line-height: 1.5;
     text-align: left;
-    padding: 5px;
-    margin: 5px;
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
+    font-weight: bolder;
+    border: #DA7422;
+    border-style: double;
+    border-radius: 10px;
+}
+.fantasy-text:hover {
+      background-color:  #DA7422;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      font-size: 30px;
+      color: #ffffff;
+      padding: 10px;
+      line-height: 1.5;
+      text-align: left;
+      text-decoration: none;
+      padding: 10px;
+      margin: 10px;
+      font-weight: bolder;
+      border: #000000;
+      border-style: double;
+      border-radius: 10px;
+  }
+  
+.fantasy-text2{
+    font-size: 17px;
+    background-color:  #031D44;;
+    color: #ffffff;
     line-height: 1.5;
-
+    text-align: left;
+    text-decoration: none;
+    padding: 10px;
+    margin: 10px;
 
 }
+.color-like{
+    background-color:#E0E0E0  ;
+}
+
+.img-1{
+    background-color: #DA7422;
+    width:100%;
+    height: auto;
+    padding: 10px;
+    margin: 10px;
+    border: #2191FB;
+    border-style: double;
+    border-radius: 10px;
+}
+
+a href{
+    color:#FFFBDB;
+}
+
+
 
 #id_answer_file{
     background-color: #DA7422;

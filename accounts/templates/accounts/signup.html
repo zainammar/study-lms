@@ -1,85 +1,180 @@
+
+    <style>
+          input {
+    width:100%;
+    height:35px;
+}
+
+
+    </style>
 {% extends "pages/base.html" %}
 {% load static %}
 
 {% block content %}
-    <style>
-        /* body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; } */
-        input { width: 70%; padding: 8px; margin: 5px 0; }
-        button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
-        button:hover { background: #45a049; }
-        .form-group { margin-bottom: 15px; }
-        .messages { padding: 10px; margin: 10px 0; background: #d4edda; border: 1px solid #c3e6cb; }
-    </style>
-    <style>
-        .containera {
-          display: grid;
-          grid-template-columns: 50% 50%;
-          background-color: rgb(0, 0, 0);
-          padding: 5px;
-          gap: 5px;
-        }
-        .containera div {
-      
-          padding: 10px;
-          font-size: 20px;
-          text-align: center;
-            text-decoration: none;
-        }
-        .div-1{
-            background-color: #d4edda;
-            font-family: Arial; max-width:300px; margin: 50px auto; padding: 20px; 
-        }
-        .div-2{
-             
-             font-family: Georgia, 'Times New Roman', Times, serif;
-             color: white;
-             margin:0px; 
-             padding: 0px; 
-        }
-        </style>
-</head>
-<body>
-    <div class="containera">
-        <div class="div-2">
 
-         
-            <img src="{% static 'images/logo.png' %}"
-            alt="logo"
-            style="max-width:20%; height:auto; margin-bottom:20px;">
-            <h1>Welcome to Study LMS</h1>
-            <p>Your journey to knowledge begins here. Sign up to access a world of learning resources and connect with fellow learners.</p>
-            <hr>
-            <p>Name Style : Haroon</p>
-            <p>Password Style : MHaroon123+</p>
-            <p>Name Short in Password Use Caps+Small+Numrical+symbols</p>
-            <img src="{% static 'accounts/images/signup.png' %}"
-            alt="Study LMS"
-            style="max-width:100%; height:auto; margin-bottom:20px;">
-         
-        </div>
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<style>
+    input{
+        width:100%;
+        height:35px;
+    
+    }
   
-        <div>
-        <div class="div-1">
-            <h2>Sign Up</h2>
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <div class="form-group">
-            {{ field.label_tag }}
-            {{ field }}
-            {% if field.errors %}
-                <div style="color:#000000; font-size: 25px; margin-top: 5px;">
-                    {% for error in field.errors %}
-                        {{ error }}
-                    {% endfor %}
+</style>
+<div class="row-9 content-grid">
+    <div class="grid-item-1">
+        <div class="color-like">
+            <div> 
+             
+                    <div>
+                        <h1 class="fantasy-text">Welcome to Study LMS</h1>
+                        <p class="fantasy-text2">
+    
+                            This Learning Management System (LMS) is a web-based platform developed
+                            using Django that allows users to access structured educational content
+                            such as videos, PDF documents, and text-based lessons.
+                        </p>
+                        <p class="fantasy-text2"> Your journey to knowledge begins here. Sign up to access a world of learning resources and connect with fellow learners.</p>
+                        <p class="fantasy-text2"> Name Style : Haroon<br>
+                            Password Style : MHaroon123+
+                            <br>Name Short in Password Use Caps+Small+Numrical+symbols
+                        
+                        </p>
+                       </div>
+
+                <div> 
+                    
+           
+            
                 </div>
-            {% endif %}
+                
+                </div>
+               
+           
+          
         </div>
-    {% endfor %}
-    <button type="submit">Sign Up</button>
-</form>
+        
+    </div>
+    <div class="grid-item-1">
+        <h2>Sign Up</h2>
+        <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                        <div style="color:#000000; font-size: 25px; margin-top: 5px;">
+                            {% for error in field.errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit">Sign Up</button>
+        </form>
+        <br>
+        <div class="links">
+            <p class="fantasy-text">
+               You have an account?
+                <br>
+              
+                <button type="submit"> <a href="/login/">Login</a></button>
+                <button type="submit"><a href="{% url 'password_reset' %}">Forgot your password?</a></button>
+            </p>
+            <p>
+                
+            </p>
+    
+    </div>
+</div></div>
+<div class="row-8 content-grid">
+    <div class="grid-item-2">
+        <h2 class="heading-2b"> 🔑 User Authentication</h2>
+        <ul>
+            <li>User Sign Up, Login, and Logout</li>
+            <li>Secure authentication using Django’s</li>
+            <li>Built-in auth system</li>
+            <li>User profiles for managing personal information</li>
+        </ul>
+
+
+
+    </div>
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">📚 Course Management</h2>
+        <ul>
+            <li>Courses</li>
+            <li>Chapters</li>
+            <li>Pages / Lessons</li>
+         
+        </ul>
+  
+
+
+    </div>
+
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">📖 Each lesson can include:</h2>
+        <ul>
+            <li>Text content</li>
+            <li>Video files</li>
+            <li>PDF resources</li>
+            <li>Assignments</li>
+            <li>Teacher Marks / Comments</li>
+            <li>Live Class Links</li>
+   
+        </ul>
+     
+    </div>
+
 
 </div>
+<div class="row-8 content-grid">
+    <div class="grid-item-2">
+        <h2 class="heading-2b">🔐 Course Access Control</h2>
+        <ul>
+            <li>Free courses are automatically available to all registered users</li>
+            <li>Restricted courses are assigned manually by the Admin</li>
+            <li>Users can only access courses they are enrolled in</li>
+            <li>Unauthorized users are blocked from viewing protected content</li>
+        </ul>
+
+    </div>
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">🛠 Admin Panel</h2>
+        <ul>
+            <li>Create, update, and delete courses, chapters, and lessons</li>
+            <li>Upload videos and PDFs</li>
+            <li>Enroll or remove users from specific courses</li>
+            <li>Manage users and content through Django Admin</li>
+        </ul>
+        
+    </div>
+    <div class="grid-item-2">
+        <!-- <img class="img-1" src="{% static 'images/study.jpg' %}"
+        alt="boy"> -->
+        <h2 class="heading-2b">💳 Fees Management</h2>
+        <ul>
+            <li>   Class-wise & Section-wise </li>
+            <li>   Automatic receipt generation</li>
+            <li>   Pending fee & overdue alerts for students/parents</li>
+            <li>   Real-time dashboard for school admin</li>
+            <li>   Fee history & transaction tracking</li>
+        </ul>
+        
+
+
+
+    </div>
+    </div>
+   
+
 </div>
+
 
 {% endblock %}

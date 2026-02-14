@@ -12,56 +12,41 @@
     }
   
 </style>
-<div class="containerb">
-    <div></div>
-    <div class="div-2">
-        <img src="{% static 'images/logo.png' %}"
-             alt="logo"
-             style="max-width:10%; height:auto; margin-bottom:20px;">
-
-        <h1>Welcome to Study LMS</h1>
-
-        <p>
-            Your journey to knowledge begins here. Sign up to access a world of
-            learning resources and connect with fellow learners.
-        </p>
-
-        <p>
-            This Learning Management System (LMS) is a web-based platform developed
-            using Django that allows users to access structured educational content
-            such as videos, PDF documents, and text-based lessons.
-        </p>
+<div class="row-9 content-grid">
+    <div class="grid-item-1">
+        <div class="color-like">
+            <div> 
+             
+                    <div>
+                        <h1 class="fantasy-text">Welcome to Study LMS</h1>
+                        <p class="fantasy-text2">
+                            Your journey to knowledge begins here. Sign up to access a world of
+                            learning resources and connect with fellow learners.
+                            <br>
+                            This Learning Management System (LMS) is a web-based platform developed
+                            using Django that allows users to access structured educational content
+                            such as videos, PDF documents, and text-based lessons.
+                        </p>
+                     
+                    </div>
+               
+               
+                <div> 
+                    
+           
+            
+                </div>
+                
+                </div>
+               
+           
+          
+        </div>
+        
     </div>
-    <div></div>
-</div>
-
-<div class="containera">
-    <div class="div-2">
-        <h2>User Authentication</h2>
-        <ul>
-            <li>User Sign Up, Login, and Logout</li>
-            <li>Secure authentication using Django’s built-in auth system</li>
-            <li>User profiles for managing personal information</li>
-        </ul>
-
-        <h2>Course Management</h2>
-        <ul>
-            <li>Courses</li>
-            <li>Chapters</li>
-            <li>Pages / Lessons</li>
-        </ul>
-
-        <h2>Each lesson can include:</h2>
-        <ul>
-            <li>📄 Text content</li>
-            <li>🎥 Video files</li>
-            <li>📑 PDF resources</li>
-        </ul>
-    </div>
-
-    <div class="div-1">
+    <div class="grid-item-1">
         <h2>Login</h2>
-
+    
         {% if messages %}
             {% for message in messages %}
                 <div class="messages">{{ message }}</div>
@@ -75,37 +60,104 @@
         </form>
         <br>
         <div class="links">
-            <p>
+            <p class="fantasy-text">
                 Don't have an account?
-                <a href="{% url 'signup' %}">Sign up here</a>
+    
+                <button type="submit"><a href="{% url 'signup' %}">Sign up here</a></button>
+                <button type="submit"><a href="{% url 'password_reset' %}">Forgot your password?</a></button>
             </p>
             <p>
-                <a href="{% url 'password_reset' %}">Forgot your password?</a>
+                
             </p>
-        </div>
+    
     </div>
-</div>
+</div></div>
+<div class="row-8 content-grid">
+    <div class="grid-item-2">
+        <h2 class="heading-2b"> 🔑 User Authentication</h2>
+        <ul>
+            <li>User Sign Up, Login, and Logout</li>
+            <li>Secure authentication using Django’s</li>
+            <li>Built-in auth system</li>
+            <li>User profiles for managing personal information</li>
+        </ul>
 
-<div class="containerC">
-    <div class="div-2">
-        <h2>🔐 Course Access Control</h2>
+
+
+    </div>
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">📚 Course Management</h2>
+        <ul>
+            <li>Courses</li>
+            <li>Chapters</li>
+            <li>Pages / Lessons</li>
+         
+        </ul>
+  
+
+
+    </div>
+
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">📖 Each lesson can include:</h2>
+        <ul>
+            <li>Text content</li>
+            <li>Video files</li>
+            <li>PDF resources</li>
+            <li>Assignments</li>
+            <li>Teacher Marks / Comments</li>
+            <li>Live Class Links</li>
+   
+        </ul>
+     
+    </div>
+
+
+</div>
+<div class="row-8 content-grid">
+    <div class="grid-item-2">
+        <h2 class="heading-2b">🔐 Course Access Control</h2>
         <ul>
             <li>Free courses are automatically available to all registered users</li>
             <li>Restricted courses are assigned manually by the Admin</li>
             <li>Users can only access courses they are enrolled in</li>
             <li>Unauthorized users are blocked from viewing protected content</li>
         </ul>
-    </div>
 
-    <div class="div-2">
-        <h2>🛠 Admin Panel</h2>
+    </div>
+    <div class="grid-item-2">
+
+        <h2 class="heading-2b">🛠 Admin Panel</h2>
         <ul>
             <li>Create, update, and delete courses, chapters, and lessons</li>
             <li>Upload videos and PDFs</li>
             <li>Enroll or remove users from specific courses</li>
             <li>Manage users and content through Django Admin</li>
         </ul>
+        
     </div>
+    <div class="grid-item-2">
+        <!-- <img class="img-1" src="{% static 'images/study.jpg' %}"
+        alt="boy"> -->
+        <h2 class="heading-2b">💳 Fees Management</h2>
+        <ul>
+            <li>   Class-wise & Section-wise </li>
+            <li>   Automatic receipt generation</li>
+            <li>   Pending fee & overdue alerts for students/parents</li>
+            <li>   Real-time dashboard for school admin</li>
+            <li>   Fee history & transaction tracking</li>
+        </ul>
+        
+
+
+
+    </div>
+    </div>
+   
+
 </div>
+
 
 {% endblock %}
