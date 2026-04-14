@@ -258,7 +258,10 @@ body{
 }
 
 
-
+input {
+    width:100%;
+    height:35px;
+}
  .buxbuny{
     background-color:#E0E0E0  ;
     background-color: #031D44;
