@@ -55,14 +55,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-# Database
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'study_lms_db',
+        'USER': 'lms_user',
+        'PASSWORD': '123456',   # ✅ MUST NOT be empty
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
     }
 }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {

@@ -1,0 +1,450 @@
+
+# For development - prints emails to console
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+# For production with Gmail (uncomment and configure):
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'your-email@gmail.com'
+# EMAIL_HOST_PASSWORD = 'your-app-password'
+# DEFAULT_FROM_EMAIL = 'your-email@gmail.com'
+
+# ============= accounts/models.py (NEW FILE) =============
+from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=100, blank=True)
+    birth_date = models.DateField(null=True, blank=True)
+    phone = models.CharField(max_length=20, blank=True)
+    
+    def __str__(self):
+        return f'{self.user.username} Profile'
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+# ============= accounts/forms.py (NEW FILE) =============
+from django import forms
+from django.contrib.auth.models import User
+from .models import Profile
+
+class UserUpdateForm(forms.ModelForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['bio', 'location', 'birth_date', 'phone']
+        widgets = {
+            'birth_date': forms.DateInput(attrs={'type': 'date'}),
+            'bio': forms.Textarea(attrs={'rows': 4}),
+        }
+
+# ============= accounts/urls.py (UPDATED) =============
+from django.urls import path
+from django.contrib.auth import views as auth_views
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('signup/', views.signup, name='signup'),
+    path('login/', views.login_view, name='login'),
+    path('logout/', views.logout_view, name='logout'),
+    path('profile/', views.profile, name='profile'),
+    path('profile/edit/', views.profile_edit, name='profile_edit'),
+    
+    # Password Reset URLs
+    path('password-reset/', 
+         auth_views.PasswordResetView.as_view(
+             template_name='accounts/password_reset.html'
+         ), 
+         name='password_reset'),
+    path('password-reset/done/', 
+         auth_views.PasswordResetDoneView.as_view(
+             template_name='accounts/password_reset_done.html'
+         ), 
+         name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/', 
+         auth_views.PasswordResetConfirmView.as_view(
+             template_name='accounts/password_reset_confirm.html'
+         ), 
+         name='password_reset_confirm'),
+    path('password-reset-complete/', 
+         auth_views.PasswordResetCompleteView.as_view(
+             template_name='accounts/password_reset_complete.html'
+         ), 
+         name='password_reset_complete'),
+]
+
+# ============= accounts/views.py (UPDATED) =============
+from django.shortcuts import render, redirect
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .forms import UserUpdateForm, ProfileUpdateForm
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created successfully!')
+            return redirect('home')
+    else:
+        form = UserCreationForm()
+    return render(request, 'accounts/signup.html', {'form': form})
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.success(request, f'Welcome back, {username}!')
+                return redirect('home')
+    else:
+        form = AuthenticationForm()
+    return render(request, 'accounts/login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    messages.info(request, 'You have been logged out.')
+    return redirect('login')
+
+@login_required
+def home(request):
+    return render(request, 'accounts/home.html')
+
+@login_required
+def profile(request):
+    return render(request, 'accounts/profile.html')
+
+@login_required
+def profile_edit(request):
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
+        
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, 'Your profile has been updated!')
+            return redirect('profile')
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForm(instance=request.user.profile)
+    
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'accounts/profile_edit.html', context)
+
+# ============= templates/accounts/home.html (UPDATED) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logout-btn { padding: 10px 20px; background: #f44336; color: white; text-decoration: none; border-radius: 5px; }
+        .logout-btn:hover { background: #da190b; }
+        .profile-btn { padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px; margin-right: 10px; }
+        .profile-btn:hover { background: #0b7dda; }
+        .welcome { background: #e3f2fd; padding: 20px; margin: 20px 0; border-radius: 5px; }
+        .nav-buttons { display: flex; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Home Page</h2>
+        <div class="nav-buttons">
+            <a href="{% url 'profile' %}" class="profile-btn">Profile</a>
+            <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+        </div>
+    </div>
+    <div class="welcome">
+        <h3>Welcome, {{ user.username }}!</h3>
+        <p>You are successfully logged in.</p>
+    </div>
+</body>
+</html>
+
+# ============= templates/accounts/profile.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .btn { padding: 10px 20px; color: white; text-decoration: none; border-radius: 5px; display: inline-block; }
+        .btn-primary { background: #2196F3; }
+        .btn-primary:hover { background: #0b7dda; }
+        .btn-secondary { background: #4CAF50; }
+        .btn-secondary:hover { background: #45a049; }
+        .profile-card { background: #f5f5f5; padding: 30px; border-radius: 10px; margin: 20px 0; }
+        .profile-info { margin: 10px 0; }
+        .profile-info label { font-weight: bold; color: #555; }
+        .profile-info p { margin: 5px 0 15px 0; color: #333; }
+        .nav-buttons { display: flex; gap: 10px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>User Profile</h2>
+        <div class="nav-buttons">
+            <a href="{% url 'home' %}" class="btn btn-primary">Home</a>
+        </div>
+    </div>
+    
+    <div class="profile-card">
+        <h3>{{ user.username }}'s Profile</h3>
+        
+        <div class="profile-info">
+            <label>Username:</label>
+            <p>{{ user.username }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Email:</label>
+            <p>{{ user.email|default:"Not provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>First Name:</label>
+            <p>{{ user.first_name|default:"Not provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Last Name:</label>
+            <p>{{ user.last_name|default:"Not provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Bio:</label>
+            <p>{{ user.profile.bio|default:"No bio provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Location:</label>
+            <p>{{ user.profile.location|default:"Not provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Birth Date:</label>
+            <p>{{ user.profile.birth_date|default:"Not provided" }}</p>
+        </div>
+        
+        <div class="profile-info">
+            <label>Phone:</label>
+            <p>{{ user.profile.phone|default:"Not provided" }}</p>
+        </div>
+        
+        <a href="{% url 'profile_edit' %}" class="btn btn-secondary">Edit Profile</a>
+    </div>
+</body>
+</html>
+
+# ============= templates/accounts/profile_edit.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Profile</title>
+    <style>
+        body { font-family: Arial; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        input, textarea, select { width: 100%; padding: 8px; margin: 5px 0 15px 0; border: 1px solid #ddd; border-radius: 4px; }
+        button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; border-radius: 4px; font-size: 16px; }
+        button:hover { background: #45a049; }
+        .btn-back { padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px; }
+        .btn-back:hover { background: #0b7dda; }
+        .messages { padding: 10px; margin: 10px 0; background: #d4edda; border: 1px solid #c3e6cb; border-radius: 4px; }
+        label { font-weight: bold; color: #555; }
+        .form-section { background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Edit Profile</h2>
+        <a href="{% url 'profile' %}" class="btn-back">Back to Profile</a>
+    </div>
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div class="messages">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-section">
+            <h3>User Information</h3>
+            {{ u_form.as_p }}
+        </div>
+        
+        <div class="form-section">
+            <h3>Profile Details</h3>
+            {{ p_form.as_p }}
+        </div>
+        
+        <button type="submit">Update Profile</button>
+    </form>
+</body>
+</html>
+
+# ============= templates/accounts/login.html (UPDATED) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background: #2196F3; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0b7dda; }
+        .form-group { margin-bottom: 15px; }
+        .messages { padding: 10px; margin: 10px 0; background: #d4edda; border: 1px solid #c3e6cb; }
+        .links { margin-top: 15px; text-align: center; }
+        .links a { color: #2196F3; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>Login</h2>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="messages">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+    </form>
+    <div class="links">
+        <p>Don't have an account? <a href="{% url 'signup' %}">Sign up here</a></p>
+        <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+    </div>
+</body>
+</html>
+
+# ============= templates/accounts/password_reset.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Reset</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .info { background: #e3f2fd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Reset Password</h2>
+    <div class="info">
+        <p>Enter your email address and we'll send you instructions to reset your password.</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Send Reset Link</button>
+    </form>
+    <p><a href="{% url 'login' %}">Back to Login</a></p>
+</body>
+</html>
+
+# ============= templates/accounts/password_reset_done.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Reset Sent</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .success { background: #d4edda; padding: 20px; border-radius: 5px; border: 1px solid #c3e6cb; }
+        a { color: #2196F3; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <h2>Password Reset Sent</h2>
+    <div class="success">
+        <p>We've emailed you instructions for setting your password. You should receive the email shortly!</p>
+        <p>If you don't receive an email, please make sure you've entered the address you registered with.</p>
+    </div>
+    <p><a href="{% url 'login' %}">Back to Login</a></p>
+</body>
+</html>
+
+# ============= templates/accounts/password_reset_confirm.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Set New Password</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+        input { width: 100%; padding: 8px; margin: 5px 0; }
+        button { width: 100%; padding: 10px; background: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .info { background: #e3f2fd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Enter New Password</h2>
+    <div class="info">
+        <p>Please enter your new password twice so we can verify you typed it correctly.</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Change Password</button>
+    </form>
+</body>
+</html>
+
+# ============= templates/accounts/password_reset_complete.html (NEW) =============
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Reset Complete</title>
+    <style>
+        body { font-family: Arial; max-width: 400px; margin: 50px auto; padding: 20px; }
+        .success { background: #d4edda; padding: 20px; border-radius: 5px; border: 1px solid #c3e6cb; }
+        .btn { display: inline-block; padding: 10px 20px; background: #2196F3; color: white; text-decoration: none; border-radius: 5px; margin-top: 15px; }
+        .btn:hover { background: #0b7dda; }
+    </style>
+</head>
+<body>
+    <h2>Password Reset Complete</h2>
+    <div class="success">
+        <p>Your password has been set successfully! You can now log in with your new password.</p>
+    </div>
+    <a href="{% url 'login' %}" class="btn">Go to Login</a>
+</body>
+</html>

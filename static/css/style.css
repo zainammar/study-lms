@@ -655,7 +655,25 @@ button:hover{
         grid-template-columns: 1fr 1fr 1fr;
        
     }
-  
+  /* 4 columns for the fees grid */
+.row-4-a {
+  grid-template-columns: 0.5fr 1fr 1fr 1.5fr; 
+}
+
+.content-grid {
+  display: grid;
+  gap: 0; /* remove gap so borders touch like a table */
+}
+
+.grid-item-1 {
+  padding: 10px;
+  text-align: center;
+  border-right: 1px solid #eee;
+}
+
+.grid-item-1:last-child {
+  border-right: none;
+}
     /* 4 columns, 1 row */
     .row-4 {
         grid-template-columns: 1fr 1fr 1fr 1fr;
