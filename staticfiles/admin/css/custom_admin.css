@@ -1,0 +1,46 @@
+/* Change header color */
+#header {
+    background: #0d6efd !important;
+}
+
+/* Change sidebar */
+#nav-sidebar {
+    background: #111 !important;
+}
+
+/* Change font */
+body {
+    font-family: 'Poppins', sans-serif !important;
+}
+
+/* Buttons */
+.button, input[type=submit], .submit-row input {
+    background: #198754 !important;
+    border-radius: 6px !important;
+}
+/* Move Add button to right */
+.object-tools {
+    float: right !important;
+    margin-top: -10px;
+}
+
+
+/* Fix Change/View links vertical issue */
+.module table td a.changelink,
+.module table td a.viewlink {
+    display: inline-block !important;
+    margin-right: 8px !important;
+    white-space: nowrap !important;
+}
+
+/* Prevent table cell from wrapping */
+.module table td {
+    white-space: nowrap !important;
+}
+/* Strong horizontal layout fix */
+.module table td:last-child {
+    display: flex !important;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: nowrap;
+}

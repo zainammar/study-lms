@@ -14,6 +14,7 @@ urlpatterns = [
         name='page_detail'
     ),
     path('results/', views.results, name='results'),
+    
      path(
         'course/<slug:course_slug>/live/',
         views.live_classes,
