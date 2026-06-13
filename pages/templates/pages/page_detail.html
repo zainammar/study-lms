@@ -5,18 +5,13 @@
 {% block content %}
 
 
+</div>
+</div>
+<div class="row-8 content-grid">
 
-<div class="row-3 content-grid">
 
   <div class="grid-item-1">
 
-
-      Course Videos PDF and Text
-      <br>
-      <button class="btn" onclick="toggleCollapse()">
-      Click
-      </button>
-      <br>
       <h3 class="txt-1">{{ course.title }}</h3>
     
       <ul>
@@ -39,36 +34,50 @@
 
 
 </div>
-<div class="grid-item-1">  
 
-<!-- RIGHT CONTENT : Page Detail -->
+  <div class="grid-item-1">  
 
-{% if page %}
-  <h1 class="txt-1">{{ page.title }}</h1>
-  <p class="txt-3">{{ page.content }}</p>
-
-  {% if page.video %}
-    <video controls width="100%">
-      <source src="{{ page.video.url }}">
-    </video>
-  {% endif %}
-
-  {% if page.pdf %}
-    <p>
-      <a href="{{ page.pdf.url }}" target="_blank" class="btn">
-        📄 Download PDF
-      </a>
-    </p>
-  {% endif %}
-{% endif %}
-
-
-
-</div>
-
-<div class="grid-item-1">
+    <!-- RIGHT CONTENT : Page Detail -->
+    
+    
+      {% if page.video %}
+      <video id="myVideo" controls  width="100%">
+        
+          <source src="{{ page.video.url }}">
+        </video>
+      {% endif %}
+    
+   
+    
+    <script>
+      document.getElementById('myVideo').addEventListener('contextmenu', function(e) {
+          e.preventDefault();
+      });
+      </script>
+    
+    </div>
  
-  <!-- ASSIGNMENTS -->
+
+                
+                    
+  </div>
+
+
+
+
+
+
+<div class="row-3 content-grid">
+  <div class="grid-item-1">
+    
+    {% if page %}
+    <h1 class="txt-1">{{ page.title }}</h1>
+    <p class="txt-3">{{ page.content }}</p>
+  
+  </div>
+<!-- Video -->
+<div class="grid-item-1">  
+     <!-- ASSIGNMENTS -->
      
   {% for assignment in assignments %}
   <h2 class="text-3">{{ assignment.title }}</h2>
@@ -133,15 +142,31 @@
                  document.getElementById("box").classList.toggle("show");
              }
              </script>
-      
+</div>
+
+  <div class="grid-item-1">  
+    {% if page.pdf %}
+<button class="btn-1">
+  <a href="{{ page.pdf.url }}" target="_blank" class="btn">
+    Download PDF
+  </a>
+</button>
+
+{% endif %}
+             
+    
+    <br>
+    {% if chapter.course.slug %}
+    <button class="btn-1">
+      <a href="{% url 'live_classes' chapter.course.slug %}">
+        📺 Live Classes
+    </a>
+    {% endif %}
+    </button>
+  {% endif %}
+
+
   </div>
-
-      
-</div>
-
-
-
-</div>
 </div>
 
 

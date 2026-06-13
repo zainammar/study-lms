@@ -15,43 +15,47 @@
   <!-- <div class="grid-item-1">
  
   </div> -->
-
+  <div class="grid-item-1">
+    {% for chapter in course.chapters.all %} 
+         
+    {{ chapter.title }}
+              
+    {% for page in chapter.pages.all %}
+  </div> 
 <div class="grid-item-1">
-
-            <ul class="txt-1">
-              {% for chapter in course.chapters.all %} 
-                <li>{{ chapter.title }}
-              
-                  <ul>
-                    {% for page in chapter.pages.all %}
-                      <li>
-              
-              
-              
-              
-                        <a href="{% url 'page_detail' course.slug chapter.slug page.slug %}" class="txt-2">
+<a href="{% url 'page_detail' course.slug chapter.slug page.slug %}" class="txt-2">
                           {{ page.title }}
-                        </a>
-                      </li>
-                    {% endfor %}
-                 
-                </li>
-              </ul>
-  </div>
-                <div class="grid-item-1">
-            
+                      </a>
                    
-                     {% if chapter.course.slug %}
-                     <a href="{% url 'live_classes' chapter.course.slug %}">
-                         📺 Live Classes
-                     </a>
-                     {% endif %}
-                     
-                     {% endfor %}
-                 
+                    {% endfor %}
+                    {% if chapter.course.slug %}
+                    <br>
+                    <button class="btn">
+                      <a href="{% url 'live_classes' chapter.course.slug %}">
+                        📺 Live Classes
+                    </a>
+                    {% endif %}
+                    </button>
+                   
+                    
+                    {% endfor %}
+                    
+  </div>
+  </div>
+  <div class="row-2 content-grid">
 
-                </div>
+  </div>     
+  <div class="row-2 content-grid">
+    <div class="grid-item-1">
             
+              
+    
+  
+
+ </div>
+
+  </div>      
+
 
               </div>
 
