@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -333,20 +332,21 @@
 
 <body>
 <!-- HEADER WITH LOGO -->
+<div>
+    <div class="topnav" id="myTopnav">
+        <a href="/dashboard/" class="active">Home</a>
+        <a href="/signup/">Signup</a>
+        <a href="/login/">Login</a>
+        <a href="/logout/">Logout</a>
+        <a href="/profile/">Edit Profile</a>
+        <a href="{% url 'results' %}" target="_blank">View Results</a>
+        <a href="{% url 'student_fees' %}">My Fees</a>
+       
+    
 
-<div class="row-2 content-grid">
-    <div class="grid-item-1">
-
-        <div class="header">
-            <div class="logo">
-                <img src="{% static 'images/logo.png' %}" alt="Logo">
-            </div>
-          
-        </div>
-    </div>
-    <div class="grid-item-1">
-
-        <h1>📚 Study Learning Management System</h1>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
     </div>
 </div>
 
@@ -354,31 +354,35 @@
 <!-- NAV + USER INFO -->
 
 <div class="row-9 content-grid">
-    <div class="grid-item-1">
 
-        <div>
-            <div class="topnav" id="myTopnav">
-                <a href="/dashboard/" class="active">Home</a>
-                <a href="/signup/">Signup</a>
-                <a href="/login/">Login</a>
-                <a href="/logout/">Logout</a>
-                <a href="/profile/">Edit Profile</a>
-                <a href="{% url 'results' %}" target="_blank">View Results</a>
-                <a href="{% url 'student_fees' %}">My Fees</a>
-               
-            
+    <div class="grid-item-1">
     
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-                    <i class="fa fa-bars"></i>
-                </a>
+        <h1>Study Learning Management System</h1>
+    </div>
+        <div class="grid-item-1">
+    
+            <div class="header">
+                <div class="logo">
+                    <img src="{% static 'images/logo.png' %}" alt="Logo">
+                </div>
+              
             </div>
         </div>
-    
+        
     </div>
+    
+<div class="row-6 content-grid">
     <div class="grid-item-1">
 
-        <div>
-            <h5 class="text-1">{{ user.username }}</h5>
+    </div>
+
+            <div class="grid-item-1">
+
+                <div>
+                    <h5 class="text-1">{{ user.username }}</h5>
+
+                        <div>
+         
         </div>
     
         <div>
@@ -388,20 +392,31 @@
         </div>
     </div>
    
-</div>
+</div> 
+<div class="grid-item-1">   </div> 
+</div> 
+<!-- <div class="grid-item-1">
+
+    <div> -->
 <hr>
-<div class="containerx">
-    <div></div>
-    <div>
-       
-        {% block content %} 
-        {% endblock %}
-        
-    </div>
-    <div></div>
-  
-  </div>
-  
+<div class="row-6 content-grid">
+    <div class="grid-item-1">
+
+    
+</div>
+
+<div class="grid-item-1 containerx">
+      
+    {% block content %} 
+    {% endblock %}
+    
+    
+</div>
+<div class="grid-item-1">
+
+    
+</div>
+</div>
 
 
 <script>

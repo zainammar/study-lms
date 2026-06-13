@@ -13,6 +13,8 @@ body{
 */
 
  
+
+
 .page-list {
     list-style-type: none; /* removes bullets */
     padding: 0;
@@ -233,7 +235,11 @@ body{
            
         }
     
-
+  
+        .row-10{
+          grid-template-columns: 1fr 1fr 3fr 1fr;
+         
+      }
   }
   
 
@@ -702,3 +708,6 @@ button:hover{
     display: block;
     margin: 0 auto;
   }
+
+
+  

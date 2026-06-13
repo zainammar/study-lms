@@ -1,4 +1,5 @@
 from pathlib import Path
+import os
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,12 +64,14 @@ DATABASES = {
     }
 }
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lms_db',
-        'USER': 'lms_user',
-        'PASSWORD': '12345',
+        'NAME': os.getenv('POSTGRES_DB', 'lms_db'),
+        'USER': os.getenv('POSTGRES_USER', 'lms_user'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', '12345'),
         'HOST': 'localhost',
         'PORT': '5432',
     }

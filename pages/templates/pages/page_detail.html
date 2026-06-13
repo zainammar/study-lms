@@ -1,21 +1,16 @@
 {% extends 'pages/base.html' %}
-
+{% load static %}  <!-- <-- This is required -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 {% block content %}
 
-<style>
-.collapse {
-    display: none;
-}
-.collapse.show {
-    display: block;
-}
-</style>
 
-<div class="row-6 content-grid">
-  <div class="grid-item-1">  </div>
+
+<div class="row-3 content-grid">
+
   <div class="grid-item-1">
 
-    <div id="box" class="collapse">
+
       Course Videos PDF and Text
       <br>
       <button class="btn" onclick="toggleCollapse()">
@@ -40,15 +35,11 @@
           </li>
         {% endfor %}
       </ul>
-    </div>
+  
 
 
 </div>
-<div class="grid-item-1">  </div>
-
-<div class="grid-item-1">  </div>
-<div class="grid-item-1">
-
+<div class="grid-item-1">  
 
 <!-- RIGHT CONTENT : Page Detail -->
 
@@ -72,105 +63,86 @@
 {% endif %}
 
 
-</div>
-</div>
 
-<div class="row-3 content-grid">
-<div class="grid-item-1">  </div>
-
+</div>
 
 <div class="grid-item-1">
  
- <!-- ASSIGNMENTS -->
-    
- {% for assignment in assignments %}
- <h2 class="text-3">{{ assignment.title }}</h2>
- <p class="text-3">{{ assignment.question }}</p>
-
- {% if assignment.submitted %}
-   <p class="text-3">Already submitted</p>
-
- 
-     <button><a href="#" onclick="document.getElementById('submission-{{ assignment.id }}').style.display='block'">
-       View Submission
-     </a>
-   </button>
-   <br>
-   <div id="submission-{{ assignment.id }}" style="display:none;">
-     {% for submission in submissions %}
-       {% if submission.assignment == assignment %}
-       <br>
-         <p>Answer: {{ submission.answer_text }}</p>
-  
-         {% if submission.answer_file %}
-           <p>
-             File: <a href="{{ submission.answer_file.url }}">Download</a>
-           </p>
-         {% endif %}
-  
-         <p>Marks: {{ submission.marks }}</p>
-         <p>Feedback: {{ submission.feedback }}</p>
-  
-
-         <button onclick="document.getElementById('submission-{{ assignment.id }}').style.display='none'">
-          Close
-          </button>
-          {% endif %}
-          {% endfor %}
-          
-          
-          <div>
-              
-            {% else %}
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %} <br>
-              <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
-          
-              <p>
-                {{ form.answer_text.label }}:
-                <input type="text" name="answer_text">
-              </p>
-          
-              <p>
-                {{ form.answer_file.label }}:
-                <input type="file" name="answer_file">
-              </p>
-          
-              <button class="btn-1" type="submit">Submit Answer</button>
-            </form>
-          {% endif %}
-          {% endfor %}
-      
-          <script>
-            function toggleCollapse() {
-                document.getElementById("box").classList.toggle("show");
-            }
-            </script>
+  <!-- ASSIGNMENTS -->
      
- </div>
-
-</div>
-</div>
-
-<div class="grid-item-1">  
+  {% for assignment in assignments %}
+  <h2 class="text-3">{{ assignment.title }}</h2>
+  <p class="text-3">{{ assignment.question }}</p>
+ 
+  {% if assignment.submitted %}
+    <p class="text-3">Already submitted</p>
+ 
   
+      <button><a href="#" onclick="document.getElementById('submission-{{ assignment.id }}').style.display='block'">
+        View Submission
+      </a>
+    </button>
+    <br>
+    <div id="submission-{{ assignment.id }}" style="display:none;">
+      {% for submission in submissions %}
+        {% if submission.assignment == assignment %}
+        <br>
+          <p>Answer: {{ submission.answer_text }}</p>
+   
+          {% if submission.answer_file %}
+            <p>
+              File: <a href="{{ submission.answer_file.url }}">Download</a>
+            </p>
+          {% endif %}
+   
+          <p>Marks: {{ submission.marks }}</p>
+          <p>Feedback: {{ submission.feedback }}</p>
+   
+ 
+          <button onclick="document.getElementById('submission-{{ assignment.id }}').style.display='none'">
+           Close
+           </button>
+           {% endif %}
+           {% endfor %}
+           
+           
+           <div>
+               
+             {% else %}
+             <form method="post" enctype="multipart/form-data">
+               {% csrf_token %} <br>
+               <input type="hidden" name="assignment_id" value="{{ assignment.id }}">
+           
+               <p>
+                 {{ form.answer_text.label }}:
+                 <input type="text" name="answer_text">
+               </p>
+           
+               <p>
+                 {{ form.answer_file.label }}:
+                 <input type="file" name="answer_file">
+               </p>
+           
+               <button class="btn-1" type="submit">Submit Answer</button>
+             </form>
+           {% endif %}
+           {% endfor %}
+       
+           <script>
+             function toggleCollapse() {
+                 document.getElementById("box").classList.toggle("show");
+             }
+             </script>
+      
+  </div>
+
+      
 </div>
-<div class="grid-item-1">  
-  
+
+
+
 </div>
-<div class="grid-item-1">  
-  
 </div>
-  </div>  
-
-
-
-</div>  
-
-
-</div>  
-    
-
 
 
 
