@@ -400,30 +400,26 @@ hr.new5 {
         
     </div>
     
-<div class="row-6 content-grid">
-    <div class="grid-item-1">
-
-    </div>
+<div class="row-9 content-grid">
+   
 
             <div class="grid-item-1">
 
-                <div>
+              
                     <h5 class="text-1">{{ user.username }}</h5>
 
-                        <div>
          
         </div>
-    
-        <div>
+        <div class="grid-item-1">   
             {% if user.profile.profile_picture %}
-                <img src="{{ user.profile.profile_picture.url }}" class="current-image">
-            {% endif %}
-        </div>
+            <img src="{{ user.profile.profile_picture.url }}" class="current-image">
+        {% endif %}
+
+        </div> 
+        
     </div>
    
-</div> 
-<div class="grid-item-1">   </div> 
-</div> 
+
 <!-- <div class="grid-item-1">
 
     <div> -->

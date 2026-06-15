@@ -1,9 +1,10 @@
 {% extends "pages/base.html" %}
-{% load static %}
+
+{% load static %}  <!-- <-- This is required -->
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
 
 {% block content %}
 
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
 <style>
     input{
         width:100%;
@@ -12,7 +13,7 @@
     }
   
 </style>
-<div class="row-9 content-grid">
+<div class="row-2 content-grid">
     <div class="grid-item-1">
         <div class="color-like">
             <div> 
@@ -72,7 +73,7 @@
     
     </div>
 </div></div>
-<div class="row-8 content-grid">
+<div class="row-2 content-grid">
     <div class="grid-item-2">
         <h2 class="heading-2b"> 🔑 User Authentication</h2>
         <ul>
@@ -115,8 +116,8 @@
     </div>
 
 
-</div>
-<div class="row-8 content-grid">
+
+
     <div class="grid-item-2">
         <h2 class="heading-2b">🔐 Course Access Control</h2>
         <ul>
