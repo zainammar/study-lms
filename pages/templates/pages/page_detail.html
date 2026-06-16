@@ -7,39 +7,38 @@
 
 </div>
 </div>
-<div class="row-8 content-grid">
-
-
+<div class="row-4 content-grid">
+  <div class="grid-item-1">
+        <h3 class="txt-1">{{ course.title }}</h3>
+  </div>
   <div class="grid-item-1">
 
-      <h3 class="txt-1">{{ course.title }}</h3>
     
-      <ul>
-        {% for chapter in course.chapters.all %}
-          <li>
-            <strong>{{ chapter.title }}</strong>
-            <ul>
-              {% for p in chapter.pages.all %}
-                <li>
-                  <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}" class="txt-2">
-                    {{ p.title }}
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </li>
-        {% endfor %}
-      </ul>
-  
+    <ul>
+      {% for chapter in course.chapters.all %}
+        <li>
+          <strong>{{ chapter.title }}</strong>
+          <ul>
+            {% for p in chapter.pages.all %}
+              <li>
+                <a href="{% url 'page_detail' course.slug chapter.slug p.slug %}" class="txt-2">
+                  {{ p.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
 
 
-</div>
+  </div>
+
 
   <div class="grid-item-1">  
 
     <!-- RIGHT CONTENT : Page Detail -->
-    
-    
+    <div class="video-width">
       {% if page.video %}
       <video id="myVideo" controls  width="100%">
         
@@ -55,9 +54,12 @@
       });
       </script>
     
+
+    </div>
+     
     </div>
  
-
+    <div class="grid-item-1"></div>
                 
                     
   </div>
@@ -146,7 +148,7 @@
 
   <div class="grid-item-1">  
     {% if page.pdf %}
-<button class="btn-1">
+<button class="button-89">
   <a href="{{ page.pdf.url }}" target="_blank" class="btn">
     Download PDF
   </a>
@@ -154,12 +156,10 @@
 
 {% endif %}
              
-    
-    <br>
     {% if chapter.course.slug %}
-    <button class="btn-1">
+    <button class="button-89">
       <a href="{% url 'live_classes' chapter.course.slug %}">
-        📺 Live Classes
+       Live Classes
     </a>
     {% endif %}
     </button>

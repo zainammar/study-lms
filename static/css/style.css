@@ -1,5 +1,7 @@
 body{
     background-color: #FFFBDB;
+    margin: 0px;
+    padding: 0px;
 }
 /* static/css/style.css */
 
@@ -155,7 +157,7 @@ body{
   
   .grid-item-1 {
     padding:10px;
-    width: 100%;
+    margin: 10px;
   
   }
   
@@ -199,7 +201,7 @@ body{
   
     /* 4 columns, 1 row */
     .row-4 {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 2fr 2fr 4fr 1fr;
        
     }
   
@@ -217,7 +219,7 @@ body{
 
         /*6 columns, 1 row */
         .row-7 {
-            grid-template-columns: 3fr 3fr 1fr ;
+            grid-template-columns: 1fr 2fr ;
          
       }
 
@@ -294,10 +296,10 @@ h2{
 
  }
 .txt-1{
-    background-color: rgb(209, 218, 223);
+    background-color: #000000;
     font-family: 'Arial', sans-serif;
-    font-size: 22px;
-    color: #000000;
+    font-size:large;
+    color: #ffffff;
     padding: 10px;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -305,10 +307,40 @@ h2{
     text-align: left;
     text-decoration: none;
 }
+.txt-1:hover {
+  background-color:#2191FB;
+  color: #ffffff;
+}
 
 
 
+ul{
+  border: none;
+  color: rgb(5, 0, 0);
 
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 2px 1px;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+li{
+  border: none;
+  color: rgb(5, 0, 0);
+  padding: 0px 10px;
+  text-align:left;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 15px;
+  margin: 2px 1px;
+  cursor: pointer;
+  border-radius: 10px;
+}
 .txt-2{
    
     font-family: 'Arial', sans-serif;
@@ -406,9 +438,6 @@ h2{
     border-radius: 10px;
 }
 
-a href{
-    color:#FFFBDB;
-}
 
 
 
@@ -454,37 +483,20 @@ label{
     border: 3px solid #2196F3;
 }
 
-button{
-    background-color:#DA7422;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-weight: bold;
-    font-size: 15px;
-    margin: 2px 1px;
-    cursor: pointer;
-    border: 3px solid #000000;
-    border-radius: 10px;
-}
-button:hover{
-    background-color: #000000;
-    color:white;
-}
+
 .btn-1{
 
     background-color:#DA7422;
+    width: 50px;
     border: none;
-    color: white;
-    padding: 10px 15px;
+
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
-    font-size: 15px;
-    margin: 2px 1px;
+    font-size: 10px;
+    color: white;
+
     cursor: pointer;
     border: 3px solid #000000;
     border-radius: 10px;
@@ -520,6 +532,11 @@ hr.new5 {
         display: block;
         text-align: left;
     }
+    .topnav a:hover {
+      background-color:#031D44;
+      color:#DA7422;
+    }
+    
 }
 
 .a21{ 
@@ -624,4 +641,49 @@ hr.new5 {
 .button,
 input[type=submit] {
   background: #f59e0b;
+}
+
+
+.video-width{
+  width: 100%;
+  margin: 20px;
+  padding: 20px;
+}
+
+
+
+
+.button-89 {
+  --b: 3px;   /* border thickness */
+  --s: .45em; /* size of the corner */
+  --color: #373B44;
+  
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible{
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button-89:active {
+  background: var(--color);
+  color: #fff;
 }
